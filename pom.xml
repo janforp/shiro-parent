@@ -8,6 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<modules>
 		<module>use-shiro</module>
+		<module>shiro-day-one</module>
 	</modules>
 	<packaging>pom</packaging>
 
