@@ -1,6 +1,7 @@
 package com.janita.url.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Map;
@@ -17,7 +18,7 @@ public class HelloController {
      * @param map   带参到页面
      * @return  视图名称
      */
-    @RequestMapping("/hello")
+    @GetMapping("/hello")
     public String helloHtml(Map<String, Object> map) {
         map.put("hello", "我是来自HelloController#helloHtml的参数");
         return "hello";
