@@ -21,4 +21,7 @@ public interface SysUserDAO {
     int updateByPrimaryKeySelective(SysUser record);
 
     int updateByPrimaryKey(SysUser record);
+
+    //TODO
+    List<SysUser> findSysUserByUserCode(String userCode);
 }
