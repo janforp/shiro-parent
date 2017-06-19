@@ -2,7 +2,8 @@
 SQLyog v10.2 
 MySQL - 5.1.72-community : Database - shiro
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -23,7 +24,7 @@ CREATE TABLE `sys_permission` (
   `parentid` bigint(20) DEFAULT NULL COMMENT '父结点id',
   `parentids` varchar(128) DEFAULT NULL COMMENT '父结点id列表串',
   `sortstring` varchar(128) DEFAULT NULL COMMENT '排序号',
-  `available` char(1) DEFAULT NULL COMMENT '是否可用,1：可用，0不可用',
+  `available` varchar(1) DEFAULT NULL COMMENT '是否可用,1：可用，0不可用',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -32,7 +33,7 @@ CREATE TABLE `sys_permission` (
 CREATE TABLE `sys_role` (
   `id` varchar(36) NOT NULL,
   `name` varchar(128) NOT NULL,
-  `available` char(1) DEFAULT NULL COMMENT '是否可用,1：可用，0不可用',
+  `available` varchar(1) DEFAULT NULL COMMENT '是否可用,1：可用，0不可用',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -53,7 +54,7 @@ CREATE TABLE `sys_user` (
   `username` varchar(64) NOT NULL COMMENT '姓名',
   `password` varchar(32) NOT NULL COMMENT '密码',
   `salt` varchar(64) DEFAULT NULL COMMENT '盐',
-  `locked` char(1) DEFAULT NULL COMMENT '账号是否锁定，1：锁定，0未锁定',
+  `locked` varchar(1) DEFAULT NULL COMMENT '账号是否锁定，1：锁定，0未锁定',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.janita.url.dao.SysPermissionDAO">
+    <resultMap id="BaseResultMap" type="com.janita.url.entity.SysPermission">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="percode" property="percode" jdbcType="VARCHAR"/>
+        <result column="parentid" property="parentid" jdbcType="BIGINT"/>
+        <result column="parentids" property="parentids" jdbcType="VARCHAR"/>
+        <result column="sortstring" property="sortstring" jdbcType="VARCHAR"/>
+        <result column="available" property="available" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT id, name, type, url, percode, 
+        parentid, parentids, sortstring, available
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.janita.url.entity.SysPermission">
+        SELECT *
+        FROM sys_permission
+        WHERE id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.janita.url.entity.SysPermission">
+        DELETE FROM sys_permission
+        WHERE id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.janita.url.entity.SysPermission">
+        INSERT INTO sys_permission ( id, 
+          name, type, url, 
+          percode, parentid, parentids, 
+          sortstring, available )
+        VALUES ( #{id,jdbcType=BIGINT}, 
+          #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+          #{percode,jdbcType=VARCHAR}, #{parentid,jdbcType=BIGINT}, #{parentids,jdbcType=VARCHAR}, 
+          #{sortstring,jdbcType=VARCHAR}, #{available,jdbcType=VARCHAR} )
+    </insert>
+    <insert id="insertSelective" parameterType="com.janita.url.entity.SysPermission">
+        INSERT INTO sys_permission
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                id,
+            <if test="name != null">
+                name,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="percode != null">
+                percode,
+            </if>
+            <if test="parentid != null">
+                parentid,
+            </if>
+            <if test="parentids != null">
+                parentids,
+            </if>
+            <if test="sortstring != null">
+                sortstring,
+            </if>
+            <if test="available != null">
+                available,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                #{id,jdbcType=BIGINT},
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="percode != null">
+                #{percode,jdbcType=VARCHAR},
+            </if>
+            <if test="parentid != null">
+                #{parentid,jdbcType=BIGINT},
+            </if>
+            <if test="parentids != null">
+                #{parentids,jdbcType=VARCHAR},
+            </if>
+            <if test="sortstring != null">
+                #{sortstring,jdbcType=VARCHAR},
+            </if>
+            <if test="available != null">
+                #{available,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO sys_permission ( id, 
+          name, type, url, 
+          percode, parentid, parentids, 
+          sortstring, available )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.id,jdbcType=BIGINT}, 
+            #{item.name,jdbcType=VARCHAR}, #{item.type,jdbcType=VARCHAR}, #{item.url,jdbcType=VARCHAR}, 
+            #{item.percode,jdbcType=VARCHAR}, #{item.parentid,jdbcType=BIGINT}, #{item.parentids,jdbcType=VARCHAR}, 
+            #{item.sortstring,jdbcType=VARCHAR}, #{item.available,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.janita.url.entity.SysPermission">
+        UPDATE sys_permission
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="percode != null">
+                percode = #{percode,jdbcType=VARCHAR},
+            </if>
+            <if test="parentid != null">
+                parentid = #{parentid,jdbcType=BIGINT},
+            </if>
+            <if test="parentids != null">
+                parentids = #{parentids,jdbcType=VARCHAR},
+            </if>
+            <if test="sortstring != null">
+                sortstring = #{sortstring,jdbcType=VARCHAR},
+            </if>
+            <if test="available != null">
+                available = #{available,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.janita.url.entity.SysPermission">
+        UPDATE sys_permission
+        SET name = #{name,jdbcType=VARCHAR},
+            type = #{type,jdbcType=VARCHAR},
+            url = #{url,jdbcType=VARCHAR},
+            percode = #{percode,jdbcType=VARCHAR},
+            parentid = #{parentid,jdbcType=BIGINT},
+            parentids = #{parentids,jdbcType=VARCHAR},
+            sortstring = #{sortstring,jdbcType=VARCHAR},
+            available = #{available,jdbcType=VARCHAR}
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

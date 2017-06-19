@@ -1,5 +1,6 @@
 package com.janita.url;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -8,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 该类是：基于 url 的权限管理
  */
 @SpringBootApplication
+@MapperScan(basePackages ="com.janita.url")
 public class UrlApplication {
     public static void main(String[] args) {
         SpringApplication.run(UrlApplication.class, args);
