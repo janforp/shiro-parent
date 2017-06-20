@@ -32,7 +32,7 @@
 		<mysql.connector.version>5.1.39</mysql.connector.version>
 		<mybatis.spring.boot.version>1.1.1</mybatis.spring.boot.version>
 		<jackson.databind.version>2.6.5</jackson.databind.version>
-		<shiro..version>1.3.2</shiro..version>
+		<shiro.version>1.3.2</shiro.version>
 	</properties>
 
 	<dependencyManagement>
@@ -84,7 +84,22 @@
 			<dependency>
 				<groupId>org.apache.shiro</groupId>
 				<artifactId>shiro-core</artifactId>
-				<version>${shiro..version}</version>
+				<version>${shiro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-web</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-spring</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-ehcache</artifactId>
+				<version>${shiro.version}</version>
 			</dependency>
 
 			<!-- swagger -->
