@@ -8,8 +8,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<modules>
 		<module>use-shiro</module>
-		<module>shiro-day-one</module>
-		<module>url-interceptor-authority</module>
 	</modules>
 	<packaging>pom</packaging>
 
