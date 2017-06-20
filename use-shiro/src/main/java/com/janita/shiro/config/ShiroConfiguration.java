@@ -4,6 +4,7 @@ import com.janita.shiro.realms.SecondShiroRealm;
 import com.janita.shiro.realms.FirstShiroRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authc.pam.AllSuccessfulStrategy;
+import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
 import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.realm.Realm;
@@ -58,7 +59,9 @@ public class ShiroConfiguration {
         realmCollection.add(firstRealm());
         realmCollection.add(secondRealm());
         authenticator.setRealms(realmCollection);
-        //策略
+        //策略：不同的策略
+        //AtLeastOneSuccessfulStrategy
+        //AllSuccessfulStrategy
         authenticator.setAuthenticationStrategy(new AllSuccessfulStrategy());
         return authenticator;
     }
@@ -98,12 +101,31 @@ public class ShiroConfiguration {
         return new AuthorizationAttributeSourceAdvisor();
     }
 
+    /**
+     * <property name="securityManager" ref="securityManager" />
+     <property name="loginUrl" value="/login" />
+     <property name="successUrl" value="/login/loginSuccessFull" />
+     <property name="unauthorizedUrl" value="/login/unauthorized" />
+     <property name="filterChainDefinitions">
+     <value>
+     /home* = anon
+     / = anon
+     /logout = logout
+     /role/** = roles[admin]
+     /permission/** = perms[permssion:look]
+     /** = authc
+     </value>
+     </property>
+     * @return
+     */
     @Bean
     public ShiroFilterFactoryBean getShiroFilterFactoryBean() {
 
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 
         shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());
+        //配置登录接口，当调用登出接口之后，默认会调用此接口
+        shiroFilterFactoryBean.setLoginUrl("/shiro");
 
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 
