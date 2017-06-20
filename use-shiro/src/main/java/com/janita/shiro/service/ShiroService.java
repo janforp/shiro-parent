@@ -14,6 +14,7 @@ public class ShiroService {
 
     /**
      * 要求必须有 admin 角色才能访问该方法
+     * 但是一般是放在 controller 层
      */
     @RequiresRoles({"admin"})
     public void testMethod() {

@@ -124,33 +124,35 @@ public class ShiroConfiguration {
      */
     @Bean
     public ShiroFilterFactoryBean getShiroFilterFactoryBean() {
-
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-
         shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());
         //配置登录接口，当调用登出接口之后，默认会调用此接口
         shiroFilterFactoryBean.setLoginUrl("/shiro");
         shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized");
+        //统一管理资源权限
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(buildFilterChainDefinitionMap());
+        return shiroFilterFactoryBean;
+    }
 
-        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-
+    /**
+     * 配置一个bean ，该 bean 实际上就是一个 map
+     * 实际上我们需要从数据库中查询
+     */
+    @Bean
+    public LinkedHashMap<String, String> buildFilterChainDefinitionMap() {
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
         //跳转登录页面的接口时可以匿名访问的
-        filterChainDefinitionMap.put("/shiro", "anon");
+        map.put("/shiro", "anon");
         //登录接口也可以匿名
-        filterChainDefinitionMap.put("/shiro/login", "anon");
+        map.put("/shiro/login", "anon");
         //登出
-        filterChainDefinitionMap.put("/shiro/logout", "logout");
+        map.put("/shiro/logout", "logout");
         //给不同的角色不同的权限
         //TODO,权限配置，需要实现授权的 realm
-        filterChainDefinitionMap.put("/admin", "roles[admin]");
-        filterChainDefinitionMap.put("/user", "roles[user]");
-
-
+        map.put("/admin", "roles[admin]");
+        map.put("/user", "roles[user]");
         //需要认证之后的接口
-        filterChainDefinitionMap.put("/**", "authc");
-
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-
-        return shiroFilterFactoryBean;
+        map.put("/**", "authc");
+        return map;
     }
 }
