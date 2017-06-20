@@ -184,8 +184,14 @@ public class ShiroConfiguration {
         map.put("/shiro/logout", "logout");
         //给不同的角色不同的权限
         //TODO,权限配置，需要实现授权的 realm
+//        map.put("/admin", "authc,roles[admin]");
+//        map.put("/user", "authc,roles[user]");
         map.put("/admin", "roles[admin]");
         map.put("/user", "roles[user]");
+
+        //认证或者记住我都可以访问该接口
+        map.put("/list", "user");
+
         //需要认证之后的接口
         map.put("/**", "authc");
         return map;

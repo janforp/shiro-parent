@@ -52,7 +52,7 @@ public class LoginController {
                 throw new RuntimeException("登录失败");
             }
         }
-        return "list";
+        return "redirect:/list";
     }
 
     /**
