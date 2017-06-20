@@ -22,19 +22,14 @@ public class AuthorizationTest {
     public void testAuthorization() {
         //创建 SecurityManager 工厂
         Factory<SecurityManager> factory = new IniSecurityManagerFactory("classpath:shiro-permission.ini");
-
         //创建 SecurityManager
         SecurityManager securityManager = factory.getInstance();
-
         //将 SecurityManager 设置到系统运行环境
         SecurityUtils.setSecurityManager(securityManager);
-
         //创建对象
         Subject subject = SecurityUtils.getSubject();
-
         //创建 token 令牌
         UsernamePasswordToken token = new UsernamePasswordToken("zhangsan", "123");
-
         //执行认证
         try {
             subject.login(token);
@@ -42,7 +37,6 @@ public class AuthorizationTest {
             e.printStackTrace();
         }
         System.out.println("\n***** 认证状态 : " + subject.isAuthenticated());
-
         //认证通过后，执行授权
 
         //基于角色的授权
