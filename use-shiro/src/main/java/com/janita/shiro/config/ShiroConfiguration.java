@@ -2,6 +2,7 @@ package com.janita.shiro.config;
 
 import com.janita.shiro.realms.ShiroRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -12,6 +13,8 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -33,6 +36,29 @@ public class ShiroConfiguration {
         matcher.setHashIterations(1024);
         realm.setCredentialsMatcher(matcher);
         return realm;
+    }
+
+    @Bean(name = "secondShiroRealmImpl")
+    public Realm getSecondShiroRealm() {
+        ShiroRealm realm = new ShiroRealm();
+        //指定密码加密的算法
+        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher();
+        //会自动把前台输入的密码用 md5 加密
+        matcher.setHashAlgorithmName("SHA1");
+        //指定加密的次数
+        matcher.setHashIterations(1024);
+        realm.setCredentialsMatcher(matcher);
+        return realm;
+    }
+
+    @Bean
+    public ModularRealmAuthenticator authenticator() {
+        ModularRealmAuthenticator authenticator = new ModularRealmAuthenticator();
+        //配置多个 realm
+        Collection<Realm> realms = Arrays.asList(getShiroRealm(), getSecondShiroRealm());
+        authenticator.setRealms(realms);
+
+        return authenticator;
     }
 
     @Bean(name = "shiroEhcacheManager")
@@ -57,7 +83,8 @@ public class ShiroConfiguration {
     @Bean(name = "securityManager")
     public DefaultWebSecurityManager getDefaultWebSecurityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(getShiroRealm());
+        //多个 realm 最终还是配置到这里的
+        securityManager.setAuthenticator(authenticator());
         securityManager.setCacheManager(getEhCacheManager());
         return securityManager;
     }

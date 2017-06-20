@@ -9,10 +9,13 @@ import org.apache.shiro.util.ByteSource;
  * Created by Janita on 2017/6/20 0020-上午 9:34
  * 该类是：
  */
-public class ShiroRealm extends AuthenticatingRealm {
+public class SecondShiroRealm extends AuthenticatingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+
+        System.out.println("\n***** : " + "SecondRealm");
+
         //1.强转为 UsernamePasswordToken
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
         //2.从 UsernamePasswordToken 中取到 username
@@ -35,23 +38,22 @@ public class ShiroRealm extends AuthenticatingRealm {
         //密码
         Object credentials = null;
         if ("admin".equals(username)){
-            credentials = "038bdaf98f2037b31f1e75b5b4c9b26e";
+            credentials = "ce2f6417c7e1d32c1d81a797ee0b499f87c5de06";
         }else if ("user".equals(username)){
-            credentials = "098d2c478e9c11555ce2823231e02ec1";
+            credentials = "073d4c3ae812935f23cb3f2a71943f49e082a718";
         }
-
         //realmName
         String realmName = getName();
         //盐值
         ByteSource salt = ByteSource.Util.bytes(username);
-        return new SimpleAuthenticationInfo(principal, credentials, salt, realmName);
+        return new SimpleAuthenticationInfo("secondRealmName", credentials, salt, realmName);
     }
 
     public static void main(String[] args) {
-        String name = "MD5";
+        String name = "SHA1";
         Object cre = "123456";
         int time = 1024;
-        ByteSource salt = ByteSource.Util.bytes("user");
+        ByteSource salt = ByteSource.Util.bytes("admin");
         Object res = new SimpleHash(name, cre, salt, time);
         System.out.println("\n***** : " + res);
     }
