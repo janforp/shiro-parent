@@ -1,6 +1,7 @@
 package com.janita.shiro.config;
 
 import com.janita.shiro.realms.ShiroRealm;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -23,7 +24,15 @@ public class ShiroConfiguration {
 
     @Bean(name = "ShiroRealmImpl")
     public Realm getShiroRealm() {
-        return new ShiroRealm();
+        ShiroRealm realm = new ShiroRealm();
+        //指定密码加密的算法
+        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher();
+        //会自动把前台输入的密码用 md5 加密
+        matcher.setHashAlgorithmName("MD5");
+        //指定加密的次数
+        matcher.setHashIterations(1024);
+        realm.setCredentialsMatcher(matcher);
+        return realm;
     }
 
     @Bean(name = "shiroEhcacheManager")

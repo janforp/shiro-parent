@@ -1,0 +1,9 @@
+1.如何把一个字符串加密为密文 MD5
+2.替换当前Realm 的 credentialsMatcher 属性，直接使用 HashedCredentialsMatcher 对象，并设置加密算法即可。
+
+密码的比对：
+通过 AuthenticatingRealm 的 credentialsMatcher 属性来进行密码的比对！
+
+
+3.但是如果两个人的密码一样，则加密之后的密文也一样？
+    加盐值
