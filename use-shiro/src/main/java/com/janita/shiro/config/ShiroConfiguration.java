@@ -3,7 +3,6 @@ package com.janita.shiro.config;
 import com.janita.shiro.realms.SecondShiroRealm;
 import com.janita.shiro.realms.FirstShiroRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.authc.pam.AllSuccessfulStrategy;
 import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
 import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
