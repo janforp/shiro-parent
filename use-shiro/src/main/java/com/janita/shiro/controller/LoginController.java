@@ -47,6 +47,7 @@ public class LoginController {
             }catch (AuthenticationException e) {
                 e.printStackTrace();
                 System.out.println("\n***** : " + "登录失败");
+                throw new RuntimeException("登录失败");
             }
         }
         return "list";

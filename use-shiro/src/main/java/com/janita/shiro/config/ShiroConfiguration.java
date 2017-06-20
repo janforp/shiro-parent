@@ -75,7 +75,8 @@ public class ShiroConfiguration {
         //登录
 //        filterChainDefinitionMap.put("/shiro/login", "anon");
         //登出
-        filterChainDefinitionMap.put("/shiro/logout", "logout");
+        //TODO 点击导出并没有什么用啊
+        filterChainDefinitionMap.put("logout", "logout");
         //需要认证之后的接口
         filterChainDefinitionMap.put("/sa/**", "authc");
         //匿名的接口
