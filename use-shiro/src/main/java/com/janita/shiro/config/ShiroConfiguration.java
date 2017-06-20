@@ -40,23 +40,23 @@ public class ShiroConfiguration {
 
     @Bean
     public DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator() {
-        DefaultAdvisorAutoProxyCreator daap = new DefaultAdvisorAutoProxyCreator();
-        daap.setProxyTargetClass(true);
-        return daap;
+        DefaultAdvisorAutoProxyCreator proxyCreator = new DefaultAdvisorAutoProxyCreator();
+        proxyCreator.setProxyTargetClass(true);
+        return proxyCreator;
     }
 
     @Bean(name = "securityManager")
     public DefaultWebSecurityManager getDefaultWebSecurityManager() {
-        DefaultWebSecurityManager dwsm = new DefaultWebSecurityManager();
-        dwsm.setRealm(getShiroRealm());
-        dwsm.setCacheManager(getEhCacheManager());
-        return dwsm;
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        securityManager.setRealm(getShiroRealm());
+        securityManager.setCacheManager(getEhCacheManager());
+        return securityManager;
     }
 
     @Bean
     public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor() {
-        AuthorizationAttributeSourceAdvisor aasa = new AuthorizationAttributeSourceAdvisor();
-        aasa.setSecurityManager(getDefaultWebSecurityManager());
+        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
+        advisor.setSecurityManager(getDefaultWebSecurityManager());
         return new AuthorizationAttributeSourceAdvisor();
     }
 
