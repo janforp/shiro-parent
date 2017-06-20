@@ -52,21 +52,6 @@ public class ShiroConfiguration {
     }
 
     @Bean
-    public ModularRealmAuthenticator authenticator() {
-        ModularRealmAuthenticator authenticator = new ModularRealmAuthenticator();
-        //配置多个 realm
-        Collection<Realm> realmCollection = new ArrayList<>();
-        realmCollection.add(firstRealm());
-        realmCollection.add(secondRealm());
-        authenticator.setRealms(realmCollection);
-        //策略：不同的策略
-        //AtLeastOneSuccessfulStrategy
-        //AllSuccessfulStrategy
-        authenticator.setAuthenticationStrategy(new AllSuccessfulStrategy());
-        return authenticator;
-    }
-
-    @Bean
     public EhCacheManager getEhCacheManager() {
         EhCacheManager em = new EhCacheManager();
         em.setCacheManagerConfigFile("classpath:ehcache-shiro.xml");
@@ -86,11 +71,30 @@ public class ShiroConfiguration {
     }
 
     @Bean
+    public ModularRealmAuthenticator authenticator() {
+        ModularRealmAuthenticator authenticator = new ModularRealmAuthenticator();
+        //配置多个 realm
+//        Collection<Realm> realmCollection = new ArrayList<>();
+//        realmCollection.add(firstRealm());
+//        realmCollection.add(secondRealm());
+//        authenticator.setRealms(realmCollection);
+        //策略：不同的策略
+        //AtLeastOneSuccessfulStrategy
+        //AllSuccessfulStrategy
+        authenticator.setAuthenticationStrategy(new AllSuccessfulStrategy());
+        return authenticator;
+    }
+
+    @Bean
     public DefaultWebSecurityManager getDefaultWebSecurityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         //多个 realm 最终还是配置到这里的
         securityManager.setAuthenticator(authenticator());
         securityManager.setCacheManager(getEhCacheManager());
+        Collection<Realm> realmCollection = new ArrayList<>();
+        realmCollection.add(firstRealm());
+        realmCollection.add(secondRealm());
+        securityManager.setRealms(realmCollection);
         return securityManager;
     }
 
