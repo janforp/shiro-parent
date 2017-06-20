@@ -8,6 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<modules>
 		<module>use-shiro</module>
+		<module>shiro-two</module>
 	</modules>
 	<packaging>pom</packaging>
 
@@ -130,6 +131,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>
