@@ -60,27 +60,23 @@ public class ShiroConfiguration {
         return new AuthorizationAttributeSourceAdvisor();
     }
 
-    private static Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-
     @Bean(name = "shiroFilter")
     public ShiroFilterFactoryBean getShiroFilterFactoryBean() {
 
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 
         shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());
-        //登录
-        shiroFilterFactoryBean.setLoginUrl("/shiro/login");
-        //成功之后
-        shiroFilterFactoryBean.setSuccessUrl("/shiro/index");
-        //登录
-//        filterChainDefinitionMap.put("/shiro/login", "anon");
+
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+
+        //跳转登录页面的接口时可以匿名访问的
+        filterChainDefinitionMap.put("/shiro", "anon");
+        //登录接口也可以匿名
+        filterChainDefinitionMap.put("/shiro/login", "anon");
         //登出
-        //TODO 点击导出并没有什么用啊
-        filterChainDefinitionMap.put("logout", "logout");
+        filterChainDefinitionMap.put("/shiro/logout", "logout");
         //需要认证之后的接口
-        filterChainDefinitionMap.put("/sa/**", "authc");
-        //匿名的接口
-        filterChainDefinitionMap.put("/**", "anon");
+        filterChainDefinitionMap.put("/**", "authc");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
