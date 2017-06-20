@@ -81,7 +81,7 @@ public class ShiroConfiguration {
         //策略：不同的策略
         //AtLeastOneSuccessfulStrategy
         //AllSuccessfulStrategy
-        authenticator.setAuthenticationStrategy(new AllSuccessfulStrategy());
+        authenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
         return authenticator;
     }
 
