@@ -1,16 +1,23 @@
 package com.janita.shiro.realms;
 
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthenticatingRealm;
+import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Janita on 2017/6/20 0020-上午 9:34
  * 该类是：
  * 认证的 realm
  */
-public class FirstShiroRealm extends AuthenticatingRealm {
+public class FirstShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
@@ -58,5 +65,28 @@ public class FirstShiroRealm extends AuthenticatingRealm {
         ByteSource salt = ByteSource.Util.bytes("user");
         Object res = new SimpleHash(name, cre, salt, time);
         System.out.println("\n***** : " + res);
+    }
+
+
+    /**
+     * 授权方法
+     * @param principals
+     * @return user登录只能服务 user,而 admin 登录可以访问2个
+     */
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        //1. 从 PrincipalCollection 中获取登录用户的信息
+        Object primaryPrincipal = principals.getPrimaryPrincipal();
+        //2. 利用登录用户的信息，获取当前用户的角色或权限(可能需要查询数据库)
+        Set<String> roles = new HashSet<>();
+        roles.add("user");
+        if ("admin".equals(primaryPrincipal)) {
+            //user登录只能服务 user,而 admin 登录可以访问2个
+            roles.add("admin");
+        }
+        //3.创建 SimpleAuthorization ,并设置其 reles 属性
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(roles);
+        //4.返回 SimpleAuthorization 对象
+        return info;
     }
 }
