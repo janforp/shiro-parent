@@ -52,4 +52,15 @@ public class LoginController {
         }
         return "list";
     }
+
+    /**
+     * 登出
+     * @return
+     */
+    @GetMapping("/logout")
+    public String logout() {
+        Subject currentUser = SecurityUtils.getSubject();
+        currentUser.logout();
+        return "logout";
+    }
 }
