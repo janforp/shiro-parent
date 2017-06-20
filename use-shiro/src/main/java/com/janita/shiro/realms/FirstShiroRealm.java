@@ -8,6 +8,7 @@ import org.apache.shiro.util.ByteSource;
 /**
  * Created by Janita on 2017/6/20 0020-上午 9:34
  * 该类是：
+ * 认证的 realm
  */
 public class FirstShiroRealm extends AuthenticatingRealm {
 

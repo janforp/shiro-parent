@@ -140,6 +140,12 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/shiro/login", "anon");
         //登出
         filterChainDefinitionMap.put("/shiro/logout", "logout");
+        //给不同的角色不同的权限
+        //TODO,权限配置，需要实现授权的 realm
+        filterChainDefinitionMap.put("/admin", "roles[admin]");
+        filterChainDefinitionMap.put("/user", "roles[user]");
+
+
         //需要认证之后的接口
         filterChainDefinitionMap.put("/**", "authc");
 
