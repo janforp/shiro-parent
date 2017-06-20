@@ -1,9 +1,11 @@
 package com.janita.shiro.controller;
 
+import com.janita.shiro.service.ShiroService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +19,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/shiro")
 public class LoginController {
+
+    @Autowired
+    private ShiroService shiroService;
+
+    @GetMapping("/testShiroAnnotation")
+    public String testShiroAnnotation() {
+        shiroService.testMethod();
+        return "redirect:/shiro/";
+    }
 
     /**
      * 跳转到登录页面

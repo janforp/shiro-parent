@@ -14,3 +14,7 @@
 
 
 5.授权的 realm 需要继承 AuthorizingRealm 类，AuthorizingRealm 类继承自 AuthenticatingRealm 但是没有实现翻番，所以，认真和授权只需要继承 AuthorizingRealm 且实现两个抽象方法即可
+
+
+
+6.权限注解
