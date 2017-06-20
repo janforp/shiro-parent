@@ -36,12 +36,12 @@ public class LoginController {
      */
     @PostMapping("/login")
     public String login(@RequestParam("username") String username, @RequestParam("password") String password) {
+
         Subject currentUser = SecurityUtils.getSubject();
         if (! currentUser.isAuthenticated()) {
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
             token.setRememberMe(true);
             try {
-                System.out.println("\n*****1 : " + token);
                 //会传到 realm 实现类中
                 currentUser.login(token);
             }catch (AuthenticationException e) {
