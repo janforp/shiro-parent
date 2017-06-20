@@ -1,6 +1,7 @@
 <ehcache updateCheck="false" name="shiroCache">
 
     <defaultCache
+            name = "cache"
             maxElementsInMemory="10000"
             eternal="false"
             timeToIdleSeconds="120"

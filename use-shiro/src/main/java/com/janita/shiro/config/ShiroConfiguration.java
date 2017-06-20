@@ -8,6 +8,10 @@ import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
 import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.session.mgt.DefaultSessionManager;
+import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
+import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
+import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -85,6 +89,33 @@ public class ShiroConfiguration {
         return authenticator;
     }
 
+
+    @Bean
+    public JavaUuidSessionIdGenerator sessionIdGenerator() {
+        return new JavaUuidSessionIdGenerator();
+    }
+
+    @Bean
+    public SessionDAO sessionDAO() {
+        EnterpriseCacheSessionDAO dao = new EnterpriseCacheSessionDAO();
+        //名字在 缓存配置文件中
+        dao.setActiveSessionsCacheName("cache");
+        dao.setSessionIdGenerator(sessionIdGenerator());
+        return dao;
+    }
+
+    @Bean
+    public DefaultSessionManager sessionManager() {
+
+        DefaultSessionManager sessionManager = new DefaultSessionManager();
+        sessionManager.setGlobalSessionTimeout(1800000);
+        sessionManager.setDeleteInvalidSessions(true);
+        sessionManager.setSessionValidationSchedulerEnabled(true);
+        sessionManager.setSessionDAO(sessionDAO());
+
+        return sessionManager;
+    }
+
     @Bean
     public DefaultWebSecurityManager getDefaultWebSecurityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
@@ -95,6 +126,9 @@ public class ShiroConfiguration {
         realmCollection.add(firstRealm());
         realmCollection.add(secondRealm());
         securityManager.setRealms(realmCollection);
+
+        //配置 sessionDao
+        securityManager.setSessionManager(sessionManager());
         return securityManager;
     }
 
@@ -137,6 +171,7 @@ public class ShiroConfiguration {
     /**
      * 配置一个bean ，该 bean 实际上就是一个 map
      * 实际上我们需要从数据库中查询
+     * 仍然是优先匹配原则
      */
     @Bean
     public LinkedHashMap<String, String> buildFilterChainDefinitionMap() {
