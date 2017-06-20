@@ -41,6 +41,7 @@ public class LoginController {
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
             token.setRememberMe(true);
             try {
+                System.out.println("\n*****1 : " + token);
                 currentUser.login(token);
             }catch (AuthenticationException e) {
                 e.printStackTrace();
