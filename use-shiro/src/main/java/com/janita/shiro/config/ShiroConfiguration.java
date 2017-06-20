@@ -130,6 +130,7 @@ public class ShiroConfiguration {
         shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());
         //配置登录接口，当调用登出接口之后，默认会调用此接口
         shiroFilterFactoryBean.setLoginUrl("/shiro");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized");
 
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 
