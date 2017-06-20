@@ -1,7 +1,9 @@
 package com.janita.shiro.config;
 
-import com.janita.shiro.realms.ShiroRealm;
+import com.janita.shiro.realms.SecondShiroRealm;
+import com.janita.shiro.realms.FirstShiroRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.authc.pam.AllSuccessfulStrategy;
 import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.realm.Realm;
@@ -13,10 +15,7 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Janita on 2017/6/20 0020-上午 9:38
@@ -25,9 +24,9 @@ import java.util.Map;
 @Configuration
 public class ShiroConfiguration {
 
-    @Bean(name = "ShiroRealmImpl")
-    public Realm getShiroRealm() {
-        ShiroRealm realm = new ShiroRealm();
+    @Bean
+    public Realm firstRealm() {
+        FirstShiroRealm realm = new FirstShiroRealm();
         //指定密码加密的算法
         HashedCredentialsMatcher matcher = new HashedCredentialsMatcher();
         //会自动把前台输入的密码用 md5 加密
@@ -38,9 +37,9 @@ public class ShiroConfiguration {
         return realm;
     }
 
-    @Bean(name = "secondShiroRealmImpl")
-    public Realm getSecondShiroRealm() {
-        ShiroRealm realm = new ShiroRealm();
+    @Bean
+    public Realm secondRealm() {
+        SecondShiroRealm realm = new SecondShiroRealm();
         //指定密码加密的算法
         HashedCredentialsMatcher matcher = new HashedCredentialsMatcher();
         //会自动把前台输入的密码用 md5 加密
@@ -55,20 +54,23 @@ public class ShiroConfiguration {
     public ModularRealmAuthenticator authenticator() {
         ModularRealmAuthenticator authenticator = new ModularRealmAuthenticator();
         //配置多个 realm
-        Collection<Realm> realms = Arrays.asList(getShiroRealm(), getSecondShiroRealm());
-        authenticator.setRealms(realms);
-
+        Collection<Realm> realmCollection = new ArrayList<>();
+        realmCollection.add(firstRealm());
+        realmCollection.add(secondRealm());
+        authenticator.setRealms(realmCollection);
+        //策略
+        authenticator.setAuthenticationStrategy(new AllSuccessfulStrategy());
         return authenticator;
     }
 
-    @Bean(name = "shiroEhcacheManager")
+    @Bean
     public EhCacheManager getEhCacheManager() {
         EhCacheManager em = new EhCacheManager();
         em.setCacheManagerConfigFile("classpath:ehcache-shiro.xml");
         return em;
     }
 
-    @Bean(name = "lifecycleBeanPostProcessor")
+    @Bean
     public LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();
     }
@@ -80,7 +82,7 @@ public class ShiroConfiguration {
         return proxyCreator;
     }
 
-    @Bean(name = "securityManager")
+    @Bean
     public DefaultWebSecurityManager getDefaultWebSecurityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         //多个 realm 最终还是配置到这里的
@@ -96,7 +98,7 @@ public class ShiroConfiguration {
         return new AuthorizationAttributeSourceAdvisor();
     }
 
-    @Bean(name = "shiroFilter")
+    @Bean
     public ShiroFilterFactoryBean getShiroFilterFactoryBean() {
 
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();

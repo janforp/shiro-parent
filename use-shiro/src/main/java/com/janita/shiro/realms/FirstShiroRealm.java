@@ -9,10 +9,13 @@ import org.apache.shiro.util.ByteSource;
  * Created by Janita on 2017/6/20 0020-上午 9:34
  * 该类是：
  */
-public class ShiroRealm extends AuthenticatingRealm {
+public class FirstShiroRealm extends AuthenticatingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+
+        System.out.println("\n***** : " + "第一个 realm");
+
         //1.强转为 UsernamePasswordToken
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
         //2.从 UsernamePasswordToken 中取到 username

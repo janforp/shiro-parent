@@ -14,7 +14,8 @@ public class SecondShiroRealm extends AuthenticatingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
-        System.out.println("\n***** : " + "SecondRealm");
+        System.out.println("\n***** : " + "第二个 realm");
+
 
         //1.强转为 UsernamePasswordToken
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
