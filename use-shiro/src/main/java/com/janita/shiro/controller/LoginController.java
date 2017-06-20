@@ -42,6 +42,7 @@ public class LoginController {
             token.setRememberMe(true);
             try {
                 System.out.println("\n*****1 : " + token);
+                //会传到 realm 实现类中
                 currentUser.login(token);
             }catch (AuthenticationException e) {
                 e.printStackTrace();

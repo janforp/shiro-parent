@@ -67,13 +67,19 @@ public class ShiroConfiguration {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean
                 .setSecurityManager(getDefaultWebSecurityManager());
+        //登录
         shiroFilterFactoryBean.setLoginUrl("/shiro/login");
+        //成功之后
         shiroFilterFactoryBean.setSuccessUrl("/shiro/index");
         filterChainDefinitionMap.put("/shiro/login", "anon");
+        //登出
+        filterChainDefinitionMap.put("/shiro/logout", "logout");
+        //需要认证之后的接口
         filterChainDefinitionMap.put("/sa/**", "authc");
+        //匿名的接口
         filterChainDefinitionMap.put("/**", "anon");
-        shiroFilterFactoryBean
-                .setFilterChainDefinitionMap(filterChainDefinitionMap);
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+
         return shiroFilterFactoryBean;
     }
 }
