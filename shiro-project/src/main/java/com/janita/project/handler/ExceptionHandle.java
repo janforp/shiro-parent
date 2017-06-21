@@ -1,5 +1,6 @@
 package com.janita.project.handler;
 
+import com.janita.project.exception.CustomException;
 import com.janita.project.result.ResultDto;
 import com.janita.project.result.ResultDtoFactory;
 import org.apache.shiro.authc.LockedAccountException;
@@ -48,5 +49,10 @@ public class ExceptionHandle {
             invalidArguments.add(error.getDefaultMessage());
         }
         return ResultDtoFactory.toError("-1",invalidArguments.toString().replaceAll("\\[" , "").replaceAll("]", ""));
+    }
+
+    @ExceptionHandler(value = CustomException.class)
+    public ResultDto handleCustomException(CustomException customException) {
+        return ResultDtoFactory.toError(customException.getResultCode(), customException.getReason());
     }
 }

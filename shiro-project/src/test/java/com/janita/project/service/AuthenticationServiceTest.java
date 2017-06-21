@@ -34,6 +34,8 @@ public class AuthenticationServiceTest {
 
     @Test
     public void getPermissionNameByUserId() throws Exception {
+        Set<String> roleNameByUserId = authenticationService.getPermissionNameByUserId("1");
+        System.out.println("\n***** : " + roleNameByUserId);
     }
 
 }

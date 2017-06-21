@@ -25,7 +25,7 @@ public class StudentController {
     }
 
     @PostMapping
-    @RequiresRoles({"老师"})
+    @RequiresRoles({"teacher"})
     public ResultDto createStudent(@RequestBody Student student) {
         student.setStudentId(CommonUtils.getRandomUUID());
         student = studentService.create(student);

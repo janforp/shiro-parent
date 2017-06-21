@@ -1,11 +1,10 @@
-package com.janita.project.realm;
+package com.janita.project.shiro.realm;
 
 import com.janita.project.entity.HospitalUser;
 import com.janita.project.service.AuthenticationService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
@@ -38,18 +37,9 @@ public class LoginRealm extends AuthorizingRealm {
         String credentials = user.getPassword();
         String realmName = getName();
         ByteSource salt = ByteSource.Util.bytes(user.getSalt());
+        System.out.println("\n***** : " + "登录成功");
         return new SimpleAuthenticationInfo(principal, credentials, salt, realmName);
     }
-
-    public static void main(String[] args) {
-        String name = "MD5";
-        Object cre = "123456";
-        int time = 1024;
-        ByteSource salt = ByteSource.Util.bytes("123");
-        Object res = new SimpleHash(name, cre, salt, time);
-        System.out.println("\n***** : " + res);
-    }
-
 
     /**
      * 授权方法

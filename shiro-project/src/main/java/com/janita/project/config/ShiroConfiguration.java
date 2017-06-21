@@ -1,6 +1,6 @@
 package com.janita.project.config;
 
-import com.janita.project.realm.LoginRealm;
+import  com.janita.project.shiro.realm.*;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
 import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
@@ -137,7 +137,6 @@ public class ShiroConfiguration {
     public LinkedHashMap<String, String> buildFilterChainDefinitionMap() {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put("/login", "anon");
-        map.put("/logout", "logout");
 //        map.put("/**", "authc");
         return map;
     }
