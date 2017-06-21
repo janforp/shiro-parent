@@ -1,6 +1,7 @@
 package com.janita.project.handler;
 
 import com.janita.project.exception.CustomException;
+import com.janita.project.exception.InterceptorException;
 import com.janita.project.result.ResultDto;
 import com.janita.project.result.ResultDtoFactory;
 import org.apache.shiro.authc.LockedAccountException;
@@ -54,5 +55,10 @@ public class ExceptionHandle {
     @ExceptionHandler(value = CustomException.class)
     public ResultDto handleCustomException(CustomException customException) {
         return ResultDtoFactory.toError(customException.getResultCode(), customException.getReason());
+    }
+
+    @ExceptionHandler(value = InterceptorException.class)
+    public ResultDto handleInterceptorException(InterceptorException e) {
+        return ResultDtoFactory.toError(e.getResultCode(), e.getReason());
     }
 }

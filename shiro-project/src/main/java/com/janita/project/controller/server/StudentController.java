@@ -1,10 +1,13 @@
-package com.janita.project.controller;
+package com.janita.project.controller.server;
 
+import com.janita.project.constant.PermissionConsts;
+import com.janita.project.constant.RoleConsts;
 import com.janita.project.entity.Student;
 import com.janita.project.result.ResultDto;
 import com.janita.project.result.ResultDtoFactory;
-import com.janita.project.service.StudentService;
+import com.janita.project.service.base.StudentService;
 import com.janita.project.util.CommonUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,13 +28,14 @@ public class StudentController {
     }
 
     @PostMapping
-    @RequiresRoles({"teacher"})
+    @RequiresRoles({RoleConsts.TEACHER})
     public ResultDto createStudent(@RequestBody Student student) {
         student.setStudentId(CommonUtils.getRandomUUID());
         student = studentService.create(student);
         return ResultDtoFactory.toSuccess(student);
     }
 
+    @RequiresPermissions({PermissionConsts.QUERY_STUDENT})
     @GetMapping("/{studentId}")
     public Student find(@PathVariable String studentId) {
         return studentService.find(studentId);

@@ -1,4 +1,4 @@
-package com.janita.project.service;
+package com.janita.project.service.base;
 
 import com.janita.project.dao.StudentDAO;
 import com.janita.project.entity.Student;
