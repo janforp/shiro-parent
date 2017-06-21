@@ -9,8 +9,6 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.Factory;
 import org.junit.Test;
 
-import java.util.Arrays;
-
 /**
  * Created by Janita on 2017/6/20 0020-下午 6:19
  * 该类是：
@@ -44,7 +42,7 @@ public class CustomRealmTest {
         boolean permitted = subject.isPermitted("user:create:1");
         System.out.println("\n***** 单个权限的判断 : " +  permitted);
 
-        boolean permittedAll = subject.isPermittedAll("user:create:1", "user:update");
+        boolean permittedAll = subject.isPermittedAll("items:add", "user:create");
         System.out.println("\n***** 多个权限 判断:" + permittedAll);
     }
 }
