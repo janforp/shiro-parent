@@ -1,4 +1,4 @@
-package token;
+package com.janita.project.token;
 
 import java.io.Serializable;
 
