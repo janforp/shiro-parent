@@ -126,4 +126,15 @@ public class HospitalUser implements java.io.Serializable {
         this.locked = locked;
     }
 
+    @Override
+    public String toString() {
+        return "HospitalUser{" +
+                "userId='" + userId + '\'' +
+                ", loginName='" + loginName + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", locked=" + locked +
+                '}';
+    }
 }

@@ -7,7 +7,7 @@
         FROM permission
         WHERE permission_id
         IN
-        <foreach item="item" index="index" collection="clazzIdList" open="(" separator="," close=")">
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
             #{item}
         </foreach>
     </select>

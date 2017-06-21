@@ -68,4 +68,12 @@ public class Role implements java.io.Serializable {
         this.available = available;
     }
 
+    @Override
+    public String toString() {
+        return "Role{" +
+                "roleId='" + roleId + '\'' +
+                ", roleName='" + roleName + '\'' +
+                ", available=" + available +
+                '}';
+    }
 }

@@ -7,8 +7,7 @@
         FROM role
         WHERE role_id
         IN
-
-        <foreach item="item" index="index" collection="clazzIdList" open="(" separator="," close=")">
+        <foreach collection="list" item="item" index="index"  open="(" separator="," close=")">
             #{item}
         </foreach>
     </select>

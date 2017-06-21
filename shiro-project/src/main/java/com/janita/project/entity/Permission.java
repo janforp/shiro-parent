@@ -177,4 +177,18 @@ public class Permission implements java.io.Serializable {
         this.available = available;
     }
 
+    @Override
+    public String toString() {
+        return "Permission{" +
+                "permissionId='" + permissionId + '\'' +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", url='" + url + '\'' +
+                ", permissionCode='" + permissionCode + '\'' +
+                ", parentId=" + parentId +
+                ", parentIds='" + parentIds + '\'' +
+                ", sortString='" + sortString + '\'' +
+                ", available=" + available +
+                '}';
+    }
 }
