@@ -1,4 +1,4 @@
-package com.janita.project.util;
+package com.janita.like.util;
 
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.session.Session;

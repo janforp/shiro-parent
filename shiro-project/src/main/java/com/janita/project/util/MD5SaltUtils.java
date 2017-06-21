@@ -1,4 +1,4 @@
-package com.janita.project.util;
+package com.janita.like.util;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;

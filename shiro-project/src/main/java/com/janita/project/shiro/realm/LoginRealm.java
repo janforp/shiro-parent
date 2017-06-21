@@ -1,7 +1,7 @@
-package com.janita.project.shiro.realm;
+package com.janita.like.shiro.realm;
 
-import com.janita.project.entity.HospitalUser;
-import com.janita.project.service.AuthenticationService;
+import com.janita.like.entity.HospitalUser;
+import com.janita.like.service.AuthenticationService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;

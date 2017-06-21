@@ -10,7 +10,8 @@
 		<module>use-shiro</module>
 		<module>shiro-two</module>
         <module>shiro-project</module>
-    </modules>
+		<module>like-shiro</module>
+	</modules>
 	<packaging>pom</packaging>
 
 	<name>shiro-parent</name>

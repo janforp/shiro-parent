@@ -34,7 +34,7 @@ public class MybatisCodeGenerate {
 
     private static Logger log = LoggerFactory.getLogger(MybatisCodeGenerate.class);
 
-    private static final String DAO_PACKAGE = "com.janita.project.dao" ;
+    private static final String DAO_PACKAGE = "com.janita.like.dao" ;
 
     @Autowired(required = false)
     private DruidDataSource dataSource;
@@ -75,8 +75,8 @@ public class MybatisCodeGenerate {
         String sqlmapBasePath = "src/main/resources/mapper/";
         String schema = "shiro";
         String fileCharset = "utf-8";
-        String modalPackage = "com.janita.project.entity";
-        String daoPackage = "com.janita.project.dao";
+        String modalPackage = "com.janita.like.entity";
+        String daoPackage = "com.janita.like.dao";
 //        String daoImplPackage = "com.hongbao.api.dao.impl";
         String modalFilePath;
         String daoFilePath;

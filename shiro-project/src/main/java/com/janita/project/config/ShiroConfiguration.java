@@ -1,6 +1,6 @@
-package com.janita.project.config;
+package com.janita.like.config;
 
-import  com.janita.project.shiro.realm.*;
+import  com.janita.like.shiro.realm.*;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
 import org.apache.shiro.authc.pam.ModularRealmAuthenticator;

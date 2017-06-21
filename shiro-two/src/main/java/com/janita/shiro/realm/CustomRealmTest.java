@@ -26,7 +26,7 @@ public class CustomRealmTest {
         SecurityUtils.setSecurityManager(securityManager);
         //创建对象
         Subject subject = SecurityUtils.getSubject();
-        //创建 com.janita.project.token 令牌
+        //创建 com.janita.like.token 令牌
         UsernamePasswordToken token = new UsernamePasswordToken("zhangsan", "111111");
         //执行认证
         try {

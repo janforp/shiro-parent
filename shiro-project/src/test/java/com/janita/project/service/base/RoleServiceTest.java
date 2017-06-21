@@ -1,6 +1,6 @@
-package com.janita.project.service.base;
+package com.janita.like.service.base;
 
-import com.janita.project.entity.Role;
+import com.janita.like.entity.Role;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

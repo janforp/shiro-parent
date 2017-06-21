@@ -1,11 +1,11 @@
-package com.janita.project.interceptor;
+package com.janita.like.interceptor;
 
-import com.janita.project.config.RedisUtilsTemplate;
-import com.janita.project.constant.CommonConsts;
-import com.janita.project.enums.ResultEnum;
-import com.janita.project.exception.InterceptorException;
-import com.janita.project.exception.LoginException;
-import com.janita.project.util.RedisUtils;
+import com.janita.like.config.RedisUtilsTemplate;
+import com.janita.like.constant.CommonConsts;
+import com.janita.like.enums.ResultEnum;
+import com.janita.like.exception.InterceptorException;
+import com.janita.like.exception.LoginException;
+import com.janita.like.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
