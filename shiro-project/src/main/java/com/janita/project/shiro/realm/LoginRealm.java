@@ -37,7 +37,6 @@ public class LoginRealm extends AuthorizingRealm {
         String credentials = user.getPassword();
         String realmName = getName();
         ByteSource salt = ByteSource.Util.bytes(user.getSalt());
-        System.out.println("\n***** : " + "登录成功");
         return new SimpleAuthenticationInfo(principal, credentials, salt, realmName);
     }
 
