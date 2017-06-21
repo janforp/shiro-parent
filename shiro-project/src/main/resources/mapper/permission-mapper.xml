@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.janita.project.dao.PermissionDAO">
+    <resultMap id="BaseResultMap" type="com.janita.project.entity.Permission">
+        <id column="permission_id" property="permissionId" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="permission_code" property="permissionCode" jdbcType="VARCHAR"/>
+        <result column="parent_id" property="parentId" jdbcType="BIGINT"/>
+        <result column="parent_ids" property="parentIds" jdbcType="VARCHAR"/>
+        <result column="sort_string" property="sortString" jdbcType="VARCHAR"/>
+        <result column="available" property="available" jdbcType="TINYINT"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT permission_id, name, type, url, permission_code, 
+        parent_id, parent_ids, sort_string, available
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.janita.project.entity.Permission">
+        SELECT *
+        FROM permission
+        WHERE permission_id = #{permissionId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.janita.project.entity.Permission">
+        DELETE FROM permission
+        WHERE permission_id = #{permissionId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.janita.project.entity.Permission">
+        INSERT INTO permission ( permission_id, 
+          name, type, url, 
+          permission_code, parent_id, parent_ids, 
+          sort_string, available )
+        VALUES ( #{permissionId,jdbcType=VARCHAR}, 
+          #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+          #{permissionCode,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, #{parentIds,jdbcType=VARCHAR}, 
+          #{sortString,jdbcType=VARCHAR}, #{available,jdbcType=TINYINT} )
+    </insert>
+    <insert id="insertSelective" parameterType="com.janita.project.entity.Permission">
+        INSERT INTO permission
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                permission_id,
+            <if test="name != null">
+                name,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="permissionCode != null">
+                permission_code,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="parentIds != null">
+                parent_ids,
+            </if>
+            <if test="sortString != null">
+                sort_string,
+            </if>
+            <if test="available != null">
+                available,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                #{permissionId,jdbcType=VARCHAR},
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="permissionCode != null">
+                #{permissionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="parentIds != null">
+                #{parentIds,jdbcType=VARCHAR},
+            </if>
+            <if test="sortString != null">
+                #{sortString,jdbcType=VARCHAR},
+            </if>
+            <if test="available != null">
+                #{available,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO permission ( permission_id, 
+          name, type, url, 
+          permission_code, parent_id, parent_ids, 
+          sort_string, available )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.permissionId,jdbcType=VARCHAR}, 
+            #{item.name,jdbcType=VARCHAR}, #{item.type,jdbcType=VARCHAR}, #{item.url,jdbcType=VARCHAR}, 
+            #{item.permissionCode,jdbcType=VARCHAR}, #{item.parentId,jdbcType=BIGINT}, #{item.parentIds,jdbcType=VARCHAR}, 
+            #{item.sortString,jdbcType=VARCHAR}, #{item.available,jdbcType=TINYINT}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.janita.project.entity.Permission">
+        UPDATE permission
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="permissionCode != null">
+                permission_code = #{permissionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="parentIds != null">
+                parent_ids = #{parentIds,jdbcType=VARCHAR},
+            </if>
+            <if test="sortString != null">
+                sort_string = #{sortString,jdbcType=VARCHAR},
+            </if>
+            <if test="available != null">
+                available = #{available,jdbcType=TINYINT},
+            </if>
+        </set>
+        WHERE permission_id = #{permissionId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.janita.project.entity.Permission">
+        UPDATE permission
+        SET name = #{name,jdbcType=VARCHAR},
+            type = #{type,jdbcType=VARCHAR},
+            url = #{url,jdbcType=VARCHAR},
+            permission_code = #{permissionCode,jdbcType=VARCHAR},
+            parent_id = #{parentId,jdbcType=BIGINT},
+            parent_ids = #{parentIds,jdbcType=VARCHAR},
+            sort_string = #{sortString,jdbcType=VARCHAR},
+            available = #{available,jdbcType=TINYINT}
+        WHERE permission_id = #{permissionId,jdbcType=VARCHAR}
+    </update>
+</mapper>

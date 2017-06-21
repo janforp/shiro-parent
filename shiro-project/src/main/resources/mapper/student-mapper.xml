@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.janita.project.dao.StudentDAO">
+    <resultMap id="BaseResultMap" type="com.janita.project.entity.Student">
+        <id column="student_id" property="studentId" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT student_id, name, address
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.janita.project.entity.Student">
+        SELECT *
+        FROM student
+        WHERE student_id = #{studentId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.janita.project.entity.Student">
+        DELETE FROM student
+        WHERE student_id = #{studentId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.janita.project.entity.Student">
+        INSERT INTO student ( student_id, 
+          name, address )
+        VALUES ( #{studentId,jdbcType=VARCHAR}, 
+          #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR} )
+    </insert>
+    <insert id="insertSelective" parameterType="com.janita.project.entity.Student">
+        INSERT INTO student
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                student_id,
+            <if test="name != null">
+                name,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                #{studentId,jdbcType=VARCHAR},
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO student ( student_id, 
+          name, address )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.studentId,jdbcType=VARCHAR}, 
+            #{item.name,jdbcType=VARCHAR}, #{item.address,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.janita.project.entity.Student">
+        UPDATE student
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE student_id = #{studentId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.janita.project.entity.Student">
+        UPDATE student
+        SET name = #{name,jdbcType=VARCHAR},
+            address = #{address,jdbcType=VARCHAR}
+        WHERE student_id = #{studentId,jdbcType=VARCHAR}
+    </update>
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.janita.project.dao.RolePermissionDAO">
+    <resultMap id="BaseResultMap" type="com.janita.project.entity.RolePermission">
+        <id column="role_id" property="roleId" jdbcType="VARCHAR"/>
+        <id column="permission_id" property="permissionId" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT role_id, permission_id
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.janita.project.entity.RolePermission">
+        SELECT *
+        FROM role_permission
+        WHERE role_id = #{roleId,jdbcType=VARCHAR}
+        AND permission_id = #{permissionId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.janita.project.entity.RolePermission">
+        DELETE FROM role_permission
+        WHERE role_id = #{roleId,jdbcType=VARCHAR}
+        AND permission_id = #{permissionId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.janita.project.entity.RolePermission">
+        INSERT INTO role_permission ( role_id, 
+          permission_id )
+        VALUES ( #{roleId,jdbcType=VARCHAR}, 
+          #{permissionId,jdbcType=VARCHAR} )
+    </insert>
+    <insert id="insertSelective" parameterType="com.janita.project.entity.RolePermission">
+        INSERT INTO role_permission
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                role_id,
+                permission_id,
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                #{roleId,jdbcType=VARCHAR},
+                #{permissionId,jdbcType=VARCHAR},
+        </trim>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO role_permission ( role_id, 
+          permission_id )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.roleId,jdbcType=VARCHAR}, 
+            #{item.permissionId,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.janita.project.entity.RolePermission">
+        UPDATE role_permission
+        <set>
+        </set>
+        WHERE role_id = #{roleId,jdbcType=VARCHAR}
+        AND permission_id = #{permissionId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.janita.project.entity.RolePermission">
+        UPDATE role_permission
+
+        WHERE role_id = #{roleId,jdbcType=VARCHAR}
+        AND permission_id = #{permissionId,jdbcType=VARCHAR}
+    </update>
+</mapper>
