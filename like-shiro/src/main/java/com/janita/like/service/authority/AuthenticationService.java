@@ -1,7 +1,10 @@
-package com.janita.like.service;
+package com.janita.like.service.authority;
 
+import com.janita.like.bean.LoginResultBean;
+import com.janita.like.config.RedisUtilsTemplate;
 import com.janita.like.entity.*;
 import com.janita.like.service.base.*;
+import com.janita.like.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,14 +25,16 @@ public class AuthenticationService {
     private final UserRoleService userRoleService;
     private final PermissionService permissionService;
     private final RolePermissionService rolePermissionService;
+    private final RedisUtilsTemplate redisUtilsTemplate;
 
     @Autowired
-    public AuthenticationService(UserService userService, RoleService roleService, UserRoleService userRoleService, PermissionService permissionService, RolePermissionService rolePermissionService) {
+    public AuthenticationService(UserService userService, RoleService roleService, UserRoleService userRoleService, PermissionService permissionService, RolePermissionService rolePermissionService, RedisUtilsTemplate redisUtilsTemplate) {
         this.userService = userService;
         this.roleService = roleService;
         this.userRoleService = userRoleService;
         this.permissionService = permissionService;
         this.rolePermissionService = rolePermissionService;
+        this.redisUtilsTemplate = redisUtilsTemplate;
     }
 
     /**
@@ -65,5 +70,16 @@ public class AuthenticationService {
         List<String> permissionIds = getPermissionIdInList(rolePermissionList);
         List<Permission> permissionList = permissionService.getByPermissionIdList(permissionIds);
         return getPermissionCodeInList(permissionList);
+    }
+
+    /**
+     * 把返回的对象存入缓存
+     * @param bean
+     */
+    public void saveToCache(LoginResultBean bean) {
+        String token = bean.getToken();
+        List<String> permissions = bean.getPermissions();
+        RedisUtils.setKeyOfObject(redisUtilsTemplate, token, permissions);
+        RedisUtils.setExpire(redisUtilsTemplate, token, 200);
     }
 }

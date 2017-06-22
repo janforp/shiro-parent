@@ -17,6 +17,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.janita.like.constant.CommonConsts.HEADER_TOKEN;
+
 /**
  * @author Janita
  * create on 2017/3/4
@@ -60,7 +62,7 @@ public class SwaggerConfig {
         List<Parameter> aParameters = new ArrayList<>();
 
         ParameterBuilder token = new ParameterBuilder();
-        token.name("sessionId").description("在请求头中添加登录成功之后获得的 sessionId").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
+        token.name(HEADER_TOKEN).description("在请求头中添加登录成功之后获得的 sessionId").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
         aParameters.add(token.build());
         return aParameters;
     }

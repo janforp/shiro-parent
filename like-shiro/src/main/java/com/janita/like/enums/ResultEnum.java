@@ -50,7 +50,9 @@ public enum ResultEnum {
 
     PARSE_EXCEL_FAIL("22", "解析excel出现异常"),
 
-    EXCEL_ALREADY_PARSED("23", "该excel已解析过");
+    EXCEL_ALREADY_PARSED("23", "该excel已解析过"),
+
+    AUTHORITY_NOT_ENOUGH("24", "权限不够");
 
     private String resultCode;
 

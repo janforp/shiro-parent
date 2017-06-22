@@ -2,7 +2,9 @@ package com.janita.like.interceptor;
 
 import com.janita.like.config.RedisUtilsTemplate;
 import com.janita.like.constant.CommonConsts;
+import com.janita.like.entity.Permission;
 import com.janita.like.enums.ResultEnum;
+import com.janita.like.exception.CustomException;
 import com.janita.like.exception.InterceptorException;
 import com.janita.like.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by Janita on 2017/6/2 0002
@@ -20,15 +23,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class RequestInterceptor implements HandlerInterceptor {
 
-    @Value("${ruiZhiTokenExpireSecond}")
-    private Long ruiZhiTokenExpireSecond;
-
-    private final RedisUtilsTemplate redisUtilsTemplate;
+    private RedisUtilsTemplate redisUtilsTemplate;
 
     @Autowired
-    public RequestInterceptor(RedisUtilsTemplate redisUtilsTemplate, Long ruiZhiTokenExpireSecond) {
+    public RequestInterceptor(RedisUtilsTemplate redisUtilsTemplate) {
         this.redisUtilsTemplate = redisUtilsTemplate;
-        this.ruiZhiTokenExpireSecond = ruiZhiTokenExpireSecond;
     }
 
     @Override
@@ -39,14 +38,15 @@ public class RequestInterceptor implements HandlerInterceptor {
             throw new InterceptorException(ResultEnum.HEADER_TOKEN_NAME_EMPTY);
         }
         //去缓存中根据loginName获取到对应的token
-        String redisToken = RedisUtils.getObjectOfKey(redisUtilsTemplate,"" + "");
-        //若 token 空，或者 与请求头中的不一致，则不通过验证
-        if (StringUtils.isEmpty(redisToken) || !headerToken.equals(redisToken)){
-            throw new InterceptorException(ResultEnum.WRONG_TOKEN);
-        }else {
-            RedisUtils.setExpire(redisUtilsTemplate, "" + "", ruiZhiTokenExpireSecond);
+        List<Permission> permissions = RedisUtils.getObjectOfKey(redisUtilsTemplate, headerToken);
+        System.out.println("\n***** 该用户具有的权限 : " +  permissions);
+
+        String requestURI = request.getRequestURI();
+        System.out.println("\n***** 本次请求资源 : " + requestURI);
+        if (permissions.contains(requestURI)) {
             return true;
         }
+        throw new CustomException(ResultEnum.EMPTY_USERNAME_PASSWORD);
     }
 
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {}

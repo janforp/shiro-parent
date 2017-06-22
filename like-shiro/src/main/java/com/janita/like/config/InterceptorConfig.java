@@ -2,7 +2,6 @@ package com.janita.like.config;
 
 import com.janita.like.interceptor.RequestInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -18,9 +17,6 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
     @Autowired(required = false)
     private RedisUtilsTemplate redisUtilsTemplate;
 
-    @Value("${ruiZhiTokenExpireSecond}")
-    private Long ruiZhiTokenExpireSecond;
-
     /**
      * 多个拦截器组成一个拦截器链
      * addPathPatterns 用于添加拦截规则
@@ -29,7 +25,7 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(new RequestInterceptor(redisUtilsTemplate, ruiZhiTokenExpireSecond)).addPathPatterns("/other/**");
+        registry.addInterceptor(new RequestInterceptor(redisUtilsTemplate)).addPathPatterns("/student/**");
         super.addInterceptors(registry);
     }
 }

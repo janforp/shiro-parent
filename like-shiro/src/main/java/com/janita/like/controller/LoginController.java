@@ -5,11 +5,16 @@ import com.janita.like.entity.User;
 import com.janita.like.result.ResultDto;
 import com.janita.like.result.ResultDtoFactory;
 import com.janita.like.service.LoginService;
-import com.janita.like.service.authority.AuthorityService;
+import com.janita.like.service.authority.AuthenticationService;
+import com.janita.like.util.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Set;
+
+import static com.janita.like.util.BeanConvertUtils.convertUserToLoginResultBean;
 
 
 /**
@@ -20,19 +25,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     private final LoginService loginService;
-    private final AuthorityService authorityService;
+    private final AuthenticationService authenticationService;
 
     @Autowired(required = false)
-    public LoginController(LoginService loginService, AuthorityService authorityService) {
+    public LoginController(LoginService loginService, AuthenticationService authenticationService) {
         this.loginService = loginService;
-        this.authorityService = authorityService;
+        this.authenticationService = authenticationService;
     }
 
     @PostMapping("/login")
     public ResultDto login(@RequestParam("loginName") String loginName, @RequestParam("password") String password) {
         User user = loginService.login(loginName, password);
-        LoginResultBean bean = new LoginResultBean();
-        bean.setUsername(user.getUsername());
+        Set<String> permissions = authenticationService.getPermissionNameByUserId(user.getUserId());
+        LoginResultBean bean = convertUserToLoginResultBean(user, permissions);
+        bean.setToken(CommonUtils.getRandomUUID());
+        //把该用户的权限存入redis，用于他后面的请求看是否有权限，在拦截器中检查
+        authenticationService.saveToCache(bean);
         return ResultDtoFactory.toSuccess(bean);
     }
 }

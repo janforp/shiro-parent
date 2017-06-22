@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * 该类是：
  */
 @RestController
-@RequestMapping(value = "/stu")
+@RequestMapping(value = "/student")
 public class StudentController {
 
     private final StudentService studentService;
@@ -25,7 +25,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResultDto createStudent(@RequestBody @Validated CreateStudentDto studentDto) {
         Student student = new Student();
         student.setStudentId(CommonUtils.getRandomUUID());
@@ -36,8 +36,21 @@ public class StudentController {
         return ResultDtoFactory.toSuccess(student);
     }
 
-    @GetMapping("/{studentId}")
-    public Student find(@PathVariable String studentId) {
+    @DeleteMapping("/delete")
+    public ResultDto deleteStudent(@RequestParam("studentId") String studentId){
+        studentService.delete(studentId);
+        return ResultDtoFactory.toSuccess("删除成功");
+    }
+
+    @PutMapping("/update")
+    public ResultDto update(@RequestBody Student student) {
+        student.setStudentId(CommonUtils.getRandomUUID());
+        student = studentService.update(student);
+        return ResultDtoFactory.toSuccess(student);
+    }
+
+    @GetMapping("/find")
+    public Student find(@RequestParam("studentId") String studentId) {
         return studentService.find(studentId);
     }
 }
