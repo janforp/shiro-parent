@@ -1,4 +1,4 @@
-package com.janita.like.dto;
+package com.janita.project.dto;
 
 import org.hibernate.validator.constraints.NotBlank;
 

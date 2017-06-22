@@ -1,4 +1,4 @@
-package com.janita.like.util;
+package com.janita.project.util;
 
 import java.util.UUID;
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.janita.like.dao.HospitalUserDAO">
-    <resultMap id="BaseResultMap" type="com.janita.like.entity.HospitalUser">
+<mapper namespace="com.janita.project.dao.HospitalUserDAO">
+    <resultMap id="BaseResultMap" type="com.janita.project.entity.HospitalUser">
         <id column="user_id" property="userId" jdbcType="VARCHAR"/>
         <result column="login_name" property="loginName" jdbcType="VARCHAR"/>
         <result column="username" property="username" jdbcType="VARCHAR"/>
@@ -13,16 +13,16 @@
         SELECT user_id, login_name, username, password, salt, 
         locked
     </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.janita.like.entity.HospitalUser">
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.janita.project.entity.HospitalUser">
         SELECT *
         FROM hospital_user
         WHERE user_id = #{userId,jdbcType=VARCHAR}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="com.janita.like.entity.HospitalUser">
+    <delete id="deleteByPrimaryKey" parameterType="com.janita.project.entity.HospitalUser">
         DELETE FROM hospital_user
         WHERE user_id = #{userId,jdbcType=VARCHAR}
     </delete>
-    <insert id="insert" parameterType="com.janita.like.entity.HospitalUser">
+    <insert id="insert" parameterType="com.janita.project.entity.HospitalUser">
         INSERT INTO hospital_user ( user_id, 
           login_name, username, password, 
           salt, locked )
@@ -30,7 +30,7 @@
           #{loginName,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
           #{salt,jdbcType=VARCHAR}, #{locked,jdbcType=TINYINT} )
     </insert>
-    <insert id="insertSelective" parameterType="com.janita.like.entity.HospitalUser">
+    <insert id="insertSelective" parameterType="com.janita.project.entity.HospitalUser">
         INSERT INTO hospital_user
         <trim prefix="(" suffixOverrides="," suffix=")">
                 user_id,
@@ -83,7 +83,7 @@
             )
         </foreach>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.janita.like.entity.HospitalUser">
+    <update id="updateByPrimaryKeySelective" parameterType="com.janita.project.entity.HospitalUser">
         UPDATE hospital_user
         <set>
             <if test="loginName != null">
@@ -104,7 +104,7 @@
         </set>
         WHERE user_id = #{userId,jdbcType=VARCHAR}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.janita.like.entity.HospitalUser">
+    <update id="updateByPrimaryKey" parameterType="com.janita.project.entity.HospitalUser">
         UPDATE hospital_user
         SET login_name = #{loginName,jdbcType=VARCHAR},
             username = #{username,jdbcType=VARCHAR},

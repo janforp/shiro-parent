@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.janita.like.dao.RoleDAO">
-    <resultMap id="BaseResultMap" type="com.janita.like.entity.Role">
+<mapper namespace="com.janita.project.dao.RoleDAO">
+    <resultMap id="BaseResultMap" type="com.janita.project.entity.Role">
         <id column="role_id" property="roleId" jdbcType="VARCHAR"/>
         <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
         <result column="available" property="available" jdbcType="TINYINT"/>
@@ -9,22 +9,22 @@
     <sql id="SELECT_All_Column">
         SELECT role_id, role_name, available
     </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.janita.like.entity.Role">
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.janita.project.entity.Role">
         SELECT *
         FROM role
         WHERE role_id = #{roleId,jdbcType=VARCHAR}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="com.janita.like.entity.Role">
+    <delete id="deleteByPrimaryKey" parameterType="com.janita.project.entity.Role">
         DELETE FROM role
         WHERE role_id = #{roleId,jdbcType=VARCHAR}
     </delete>
-    <insert id="insert" parameterType="com.janita.like.entity.Role">
+    <insert id="insert" parameterType="com.janita.project.entity.Role">
         INSERT INTO role ( role_id, 
           role_name, available )
         VALUES ( #{roleId,jdbcType=VARCHAR}, 
           #{roleName,jdbcType=VARCHAR}, #{available,jdbcType=TINYINT} )
     </insert>
-    <insert id="insertSelective" parameterType="com.janita.like.entity.Role">
+    <insert id="insertSelective" parameterType="com.janita.project.entity.Role">
         INSERT INTO role
         <trim prefix="(" suffixOverrides="," suffix=")">
                 role_id,
@@ -57,7 +57,7 @@
             )
         </foreach>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.janita.like.entity.Role">
+    <update id="updateByPrimaryKeySelective" parameterType="com.janita.project.entity.Role">
         UPDATE role
         <set>
             <if test="roleName != null">
@@ -69,7 +69,7 @@
         </set>
         WHERE role_id = #{roleId,jdbcType=VARCHAR}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.janita.like.entity.Role">
+    <update id="updateByPrimaryKey" parameterType="com.janita.project.entity.Role">
         UPDATE role
         SET role_name = #{roleName,jdbcType=VARCHAR},
             available = #{available,jdbcType=TINYINT}

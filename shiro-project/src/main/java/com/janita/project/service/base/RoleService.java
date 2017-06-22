@@ -1,7 +1,7 @@
-package com.janita.like.service.base;
+package com.janita.project.service.base;
 
-import com.janita.like.dao.RoleDAO;
-import com.janita.like.entity.Role;
+import com.janita.project.dao.RoleDAO;
+import com.janita.project.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.janita.like.bean;
+package com.janita.project.bean;
 
 /**
  * Created by Janita on 2017/6/21 0021-下午 4:24

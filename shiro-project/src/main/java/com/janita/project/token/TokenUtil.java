@@ -1,4 +1,4 @@
-package com.janita.like.token;
+package com.janita.project.token;
 
 import com.auth0.jwt.JWTSigner;
 import com.auth0.jwt.JWTVerifier;

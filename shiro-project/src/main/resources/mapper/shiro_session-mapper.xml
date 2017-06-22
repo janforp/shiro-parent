@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.janita.like.dao.ShiroSessionDAO">
-    <resultMap id="BaseResultMap" type="com.janita.like.entity.ShiroSession">
+<mapper namespace="com.janita.project.dao.ShiroSessionDAO">
+    <resultMap id="BaseResultMap" type="com.janita.project.entity.ShiroSession">
         <id column="session_id" property="sessionId" jdbcType="VARCHAR"/>
         <result column="content" property="content" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="BIGINT"/>
@@ -9,22 +9,22 @@
     <sql id="SELECT_All_Column">
         SELECT session_id, content, create_time
     </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.janita.like.entity.ShiroSession">
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.janita.project.entity.ShiroSession">
         SELECT *
         FROM shiro_session
         WHERE session_id = #{sessionId,jdbcType=VARCHAR}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="com.janita.like.entity.ShiroSession">
+    <delete id="deleteByPrimaryKey" parameterType="com.janita.project.entity.ShiroSession">
         DELETE FROM shiro_session
         WHERE session_id = #{sessionId,jdbcType=VARCHAR}
     </delete>
-    <insert id="insert" parameterType="com.janita.like.entity.ShiroSession">
+    <insert id="insert" parameterType="com.janita.project.entity.ShiroSession">
         INSERT INTO shiro_session ( session_id, 
           content, create_time )
         VALUES ( #{sessionId,jdbcType=VARCHAR}, 
           #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT} )
     </insert>
-    <insert id="insertSelective" parameterType="com.janita.like.entity.ShiroSession">
+    <insert id="insertSelective" parameterType="com.janita.project.entity.ShiroSession">
         INSERT INTO shiro_session
         <trim prefix="(" suffixOverrides="," suffix=")">
                 session_id,
@@ -57,7 +57,7 @@
             )
         </foreach>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.janita.like.entity.ShiroSession">
+    <update id="updateByPrimaryKeySelective" parameterType="com.janita.project.entity.ShiroSession">
         UPDATE shiro_session
         <set>
             <if test="content != null">
@@ -69,7 +69,7 @@
         </set>
         WHERE session_id = #{sessionId,jdbcType=VARCHAR}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.janita.like.entity.ShiroSession">
+    <update id="updateByPrimaryKey" parameterType="com.janita.project.entity.ShiroSession">
         UPDATE shiro_session
         SET content = #{content,jdbcType=VARCHAR},
             create_time = #{createTime,jdbcType=BIGINT}

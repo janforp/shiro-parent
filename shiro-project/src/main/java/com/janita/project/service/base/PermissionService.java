@@ -1,7 +1,7 @@
-package com.janita.like.service.base;
+package com.janita.project.service.base;
 
-import com.janita.like.dao.PermissionDAO;
-import com.janita.like.entity.Permission;
+import com.janita.project.dao.PermissionDAO;
+import com.janita.project.entity.Permission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

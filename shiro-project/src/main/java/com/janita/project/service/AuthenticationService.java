@@ -1,14 +1,14 @@
-package com.janita.like.service;
+package com.janita.project.service;
 
-import com.janita.like.entity.*;
-import com.janita.like.service.base.*;
+import com.janita.project.entity.*;
+import com.janita.project.service.base.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
 
-import static com.janita.like.util.AuthenticationUtils.*;
+import static com.janita.project.util.AuthenticationUtils.*;
 
 /**
  * Created by Janita on 2017/6/21 0021-上午 11:56

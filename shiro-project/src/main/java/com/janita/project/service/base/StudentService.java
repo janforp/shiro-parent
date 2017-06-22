@@ -1,7 +1,7 @@
-package com.janita.like.service.base;
+package com.janita.project.service.base;
 
-import com.janita.like.dao.StudentDAO;
-import com.janita.like.entity.Student;
+import com.janita.project.dao.StudentDAO;
+import com.janita.project.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

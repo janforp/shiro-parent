@@ -1,7 +1,7 @@
-package com.janita.like.shiro.realm;
+package com.janita.project.shiro.realm;
 
-import com.janita.like.entity.HospitalUser;
-import com.janita.like.service.AuthenticationService;
+import com.janita.project.entity.HospitalUser;
+import com.janita.project.service.AuthenticationService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -33,11 +33,10 @@ public class LoginRealm extends AuthorizingRealm {
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
         String loginName = usernamePasswordToken.getUsername();
         HospitalUser user = authenticationService.getUserByLoginName(loginName);
-        String principal = user.getUserId();
-        String credentials = user.getPassword();
-        String realmName = getName();
+        String userId = user.getUserId();
+        String password = user.getPassword();
         ByteSource salt = ByteSource.Util.bytes(user.getSalt());
-        return new SimpleAuthenticationInfo(principal, credentials, salt, realmName);
+        return new SimpleAuthenticationInfo(userId, password, salt, getName());
     }
 
     /**

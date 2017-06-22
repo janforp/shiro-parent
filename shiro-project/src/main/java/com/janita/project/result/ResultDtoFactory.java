@@ -1,4 +1,4 @@
-package com.janita.like.result;
+package com.janita.project.result;
 
 /**
  * 返回工厂类

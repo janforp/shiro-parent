@@ -1,4 +1,4 @@
-package com.janita.like.constant;
+package com.janita.project.constant;
 
 /**
  * Created by Janita on 2017/6/21 0021-下午 3:42

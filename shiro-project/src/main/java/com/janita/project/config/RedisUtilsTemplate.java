@@ -1,4 +1,4 @@
-package com.janita.like.config;
+package com.janita.project.config;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.DefaultStringRedisConnection;

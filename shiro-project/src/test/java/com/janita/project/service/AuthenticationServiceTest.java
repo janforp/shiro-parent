@@ -1,4 +1,4 @@
-package com.janita.like.service;
+package com.janita.project.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

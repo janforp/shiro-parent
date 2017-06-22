@@ -1,4 +1,4 @@
-package com.janita.like.config;
+package com.janita.project.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +27,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class SwaggerConfig {
 
-	private static final String API_PACKAGE= "com.janita.like.controller";
+	private static final String API_PACKAGE= "com.janita.project.controller";
 	private static final String TITLE = "权限管理";
 	private static final String DESC = "权限管理";
 	

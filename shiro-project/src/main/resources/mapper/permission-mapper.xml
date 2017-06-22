@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.janita.like.dao.PermissionDAO">
-    <resultMap id="BaseResultMap" type="com.janita.like.entity.Permission">
+<mapper namespace="com.janita.project.dao.PermissionDAO">
+    <resultMap id="BaseResultMap" type="com.janita.project.entity.Permission">
         <id column="permission_id" property="permissionId" jdbcType="VARCHAR"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="type" property="type" jdbcType="VARCHAR"/>
@@ -16,16 +16,16 @@
         SELECT permission_id, name, type, url, permission_code, 
         parent_id, parent_ids, sort_string, available
     </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.janita.like.entity.Permission">
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.janita.project.entity.Permission">
         SELECT *
         FROM permission
         WHERE permission_id = #{permissionId,jdbcType=VARCHAR}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="com.janita.like.entity.Permission">
+    <delete id="deleteByPrimaryKey" parameterType="com.janita.project.entity.Permission">
         DELETE FROM permission
         WHERE permission_id = #{permissionId,jdbcType=VARCHAR}
     </delete>
-    <insert id="insert" parameterType="com.janita.like.entity.Permission">
+    <insert id="insert" parameterType="com.janita.project.entity.Permission">
         INSERT INTO permission ( permission_id, 
           name, type, url, 
           permission_code, parent_id, parent_ids, 
@@ -35,7 +35,7 @@
           #{permissionCode,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, #{parentIds,jdbcType=VARCHAR}, 
           #{sortString,jdbcType=VARCHAR}, #{available,jdbcType=TINYINT} )
     </insert>
-    <insert id="insertSelective" parameterType="com.janita.like.entity.Permission">
+    <insert id="insertSelective" parameterType="com.janita.project.entity.Permission">
         INSERT INTO permission
         <trim prefix="(" suffixOverrides="," suffix=")">
                 permission_id,
@@ -108,7 +108,7 @@
             )
         </foreach>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.janita.like.entity.Permission">
+    <update id="updateByPrimaryKeySelective" parameterType="com.janita.project.entity.Permission">
         UPDATE permission
         <set>
             <if test="name != null">
@@ -138,7 +138,7 @@
         </set>
         WHERE permission_id = #{permissionId,jdbcType=VARCHAR}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.janita.like.entity.Permission">
+    <update id="updateByPrimaryKey" parameterType="com.janita.project.entity.Permission">
         UPDATE permission
         SET name = #{name,jdbcType=VARCHAR},
             type = #{type,jdbcType=VARCHAR},

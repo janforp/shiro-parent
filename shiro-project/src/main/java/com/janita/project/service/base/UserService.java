@@ -1,7 +1,7 @@
-package com.janita.like.service.base;
+package com.janita.project.service.base;
 
-import com.janita.like.dao.HospitalUserDAO;
-import com.janita.like.entity.HospitalUser;
+import com.janita.project.dao.HospitalUserDAO;
+import com.janita.project.entity.HospitalUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

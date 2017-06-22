@@ -1,8 +1,8 @@
-package com.janita.like.util;
+package com.janita.project.util;
 
 
 
-import com.janita.like.config.RedisUtilsTemplate;
+import com.janita.project.config.RedisUtilsTemplate;
 
 import java.util.Map;
 import java.util.Set;

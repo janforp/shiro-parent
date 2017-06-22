@@ -1,14 +1,14 @@
-package com.janita.like.controller;
+package com.janita.project.controller;
 
-import com.janita.like.bean.LoginResultBean;
-import com.janita.like.config.RedisUtilsTemplate;
-import com.janita.like.entity.HospitalUser;
-import com.janita.like.result.ResultDto;
-import com.janita.like.result.ResultDtoFactory;
-import com.janita.like.service.LoginService;
-import com.janita.like.service.SessionService;
-import com.janita.like.util.RedisUtils;
-import com.janita.like.util.SessionSerializableUtils;
+import com.janita.project.bean.LoginResultBean;
+import com.janita.project.config.RedisUtilsTemplate;
+import com.janita.project.entity.HospitalUser;
+import com.janita.project.result.ResultDto;
+import com.janita.project.result.ResultDtoFactory;
+import com.janita.project.service.LoginService;
+import com.janita.project.service.SessionService;
+import com.janita.project.util.RedisUtils;
+import com.janita.project.util.SessionSerializableUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;

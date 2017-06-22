@@ -1,11 +1,11 @@
-package com.janita.like.dao;
+package com.janita.project.dao;
 
-import com.janita.like.entity.RolePermission;
+import com.janita.project.entity.RolePermission;
 
 import java.util.List;
 
 /**
- * Created by com.janita.like.MybatisCodeGenerate on 2017-06-21
+ * Created by com.janita.project.MybatisCodeGenerate on 2017-06-21
  */
 public interface RolePermissionDAO {
     int deleteByPrimaryKey(String roleId, String permissionId);

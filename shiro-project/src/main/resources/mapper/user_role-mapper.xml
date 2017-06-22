@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.janita.like.dao.UserRoleDAO">
-    <resultMap id="BaseResultMap" type="com.janita.like.entity.UserRole">
+<mapper namespace="com.janita.project.dao.UserRoleDAO">
+    <resultMap id="BaseResultMap" type="com.janita.project.entity.UserRole">
         <id column="user_id" property="userId" jdbcType="VARCHAR"/>
         <id column="role_id" property="roleId" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="SELECT_All_Column">
         SELECT user_id, role_id
     </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.janita.like.entity.UserRole">
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.janita.project.entity.UserRole">
         SELECT *
         FROM user_role
         WHERE user_id = #{userId,jdbcType=VARCHAR}
         AND role_id = #{roleId,jdbcType=VARCHAR}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="com.janita.like.entity.UserRole">
+    <delete id="deleteByPrimaryKey" parameterType="com.janita.project.entity.UserRole">
         DELETE FROM user_role
         WHERE user_id = #{userId,jdbcType=VARCHAR}
         AND role_id = #{roleId,jdbcType=VARCHAR}
     </delete>
-    <insert id="insert" parameterType="com.janita.like.entity.UserRole">
+    <insert id="insert" parameterType="com.janita.project.entity.UserRole">
         INSERT INTO user_role ( user_id, 
           role_id )
         VALUES ( #{userId,jdbcType=VARCHAR}, 
           #{roleId,jdbcType=VARCHAR} )
     </insert>
-    <insert id="insertSelective" parameterType="com.janita.like.entity.UserRole">
+    <insert id="insertSelective" parameterType="com.janita.project.entity.UserRole">
         INSERT INTO user_role
         <trim prefix="(" suffixOverrides="," suffix=")">
                 user_id,
@@ -48,14 +48,14 @@
             )
         </foreach>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.janita.like.entity.UserRole">
+    <update id="updateByPrimaryKeySelective" parameterType="com.janita.project.entity.UserRole">
         UPDATE user_role
         <set>
         </set>
         WHERE user_id = #{userId,jdbcType=VARCHAR}
         AND role_id = #{roleId,jdbcType=VARCHAR}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.janita.like.entity.UserRole">
+    <update id="updateByPrimaryKey" parameterType="com.janita.project.entity.UserRole">
         UPDATE user_role
 
         WHERE user_id = #{userId,jdbcType=VARCHAR}

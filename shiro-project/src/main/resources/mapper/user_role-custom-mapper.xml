@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.janita.like.dao.UserRoleDAO">
+<mapper namespace="com.janita.project.dao.UserRoleDAO">
 
-    <select id="getByUserId" resultMap="BaseResultMap" parameterType="com.janita.like.entity.UserRole">
+    <select id="getByUserId" resultMap="BaseResultMap" parameterType="com.janita.project.entity.UserRole">
         SELECT *
         FROM user_role
         WHERE user_id = #{userId,jdbcType=VARCHAR}

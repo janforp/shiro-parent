@@ -1,4 +1,4 @@
-package com.janita.like.result;
+package com.janita.project.result;
 
 import java.io.File;
 import java.util.ResourceBundle;

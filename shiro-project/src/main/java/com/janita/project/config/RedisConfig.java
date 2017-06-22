@@ -1,4 +1,4 @@
-package com.janita.like.config;
+package com.janita.project.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

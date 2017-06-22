@@ -1,10 +1,12 @@
-package com.janita.like.config;
+package com.janita.project.config;
 
-import  com.janita.like.shiro.realm.*;
+import com.janita.project.shiro.OnlineSessionFactory;
+import  com.janita.project.shiro.realm.*;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
 import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
+import org.apache.shiro.codec.Base64;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.mgt.DefaultSessionManager;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
@@ -13,7 +15,10 @@ import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.Cookie;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,31 +35,128 @@ import java.util.LinkedHashMap;
 @Configuration
 public class ShiroConfiguration {
 
-    @Bean
-    @DependsOn("lifecycleBeanPostProcessor")
-    public Realm realm() {
-        LoginRealm realm = new LoginRealm();
-        //指定密码加密的算法
-        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher();
-        //会自动把前台输入的密码用 md5 加密
-        matcher.setHashAlgorithmName("MD5");
-        //指定加密的次数
-        matcher.setHashIterations(1024);
-        realm.setCredentialsMatcher(matcher);
-        return realm;
-    }
 
     @Bean
     public EhCacheManager getEhCacheManager() {
-        EhCacheManager em = new EhCacheManager();
-        em.setCacheManagerConfigFile("classpath:ehcache-shiro.xml");
-        return em;
+        EhCacheManager cacheManager = new EhCacheManager();
+        cacheManager.setCacheManagerConfigFile("classpath:cache/ehcache.xml");
+        return cacheManager;
     }
 
     @Bean("lifecycleBeanPostProcessor")
     public LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();
     }
+
+    //凭证匹配器
+    @Bean
+    public HashedCredentialsMatcher credentialsMatcher() {
+        //指定密码加密的算法
+        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher();
+        //会自动把前台输入的密码用 md5 加密
+        matcher.setHashAlgorithmName("MD5");
+        //指定加密的次数
+        matcher.setHashIterations(1024);
+        //TODO
+        matcher.setStoredCredentialsHexEncoded(true);
+        return matcher;
+    }
+
+    @Bean
+    @DependsOn("lifecycleBeanPostProcessor")
+    public Realm realm() {
+        LoginRealm realm = new LoginRealm();
+        realm.setCredentialsMatcher(credentialsMatcher());
+        //启用缓存，默认false
+        realm.setCachingEnabled(true);
+        //禁用权限缓存，防止修改权限之后不能立即生效的问题
+        //启用身份验证缓存，即缓存AuthenticationInfo 信息，默认false
+        realm.setAuthenticationCachingEnabled(false);
+        //缓存AuthenticationInfo信息的缓存名称
+        realm.setAuthenticationCacheName("authenticationCache");
+        //启用授权缓存，即缓存AuthorizationInfo信息，默认false
+        realm.setAuthorizationCachingEnabled(false);
+        //缓存AuthorizationInfo信息的缓存名称
+        realm.setAuthorizationCacheName("authorizationCache");
+        return realm;
+    }
+
+    /**
+     * 会话Cookie模板
+     * @return
+     */
+    @Bean(name = "sessionIdCookie")
+    public Cookie sessionIdCookie () {
+        SimpleCookie cookie = new SimpleCookie("sid");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(-1);
+        return cookie;
+    }
+
+    @Bean(name = "rememberMeCookie")
+    public Cookie rememberMeCookie() {
+        SimpleCookie cookie = new SimpleCookie("rememberMe");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(-1);
+        return cookie;
+    }
+
+    /**
+     * rememberMe管理器
+     * @return
+     */
+    @Bean
+    public CookieRememberMeManager cookieRememberMeManager() {
+        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        //<property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
+        cookieRememberMeManager.setCipherKey(Base64.decode("4AvVhmFLUs0KTA3Kprsdag=="));
+        cookieRememberMeManager.setCookie(rememberMeCookie());
+        return cookieRememberMeManager;
+    }
+
+    /**
+     * 会话ID生成器
+     * @return
+     */
+    @Bean
+    public JavaUuidSessionIdGenerator sessionIdGenerator() {
+        return new JavaUuidSessionIdGenerator();
+    }
+
+    /**
+     * 会话DAO
+     * @return
+     */
+    @Bean
+    public SessionDAO sessionDAO() {
+        EnterpriseCacheSessionDAO dao = new EnterpriseCacheSessionDAO();
+        //名字在 缓存配置文件中
+        dao.setActiveSessionsCacheName("shiro-activeSessionCache");
+        dao.setSessionIdGenerator(sessionIdGenerator());
+        return dao;
+    }
+
+    /**
+     * 会话工厂
+     * @return
+     */
+    @Bean
+    public OnlineSessionFactory onlineSessionFactory() {
+        return new OnlineSessionFactory();
+    }
+
+    @Bean
+    public DefaultSessionManager sessionManager() {
+        DefaultSessionManager sessionManager = new DefaultSessionManager();
+        sessionManager.setDeleteInvalidSessions(true);
+        sessionManager.setGlobalSessionTimeout(1800000);
+        sessionManager.setSessionValidationSchedulerEnabled(true);
+        //会话验证调度器 --><!-- org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler
+        sessionManager.setSessionValidationScheduler(null);
+        sessionManager.setSessionDAO(sessionDAO());
+        return sessionManager;
+    }
+
 
     @Bean
     public DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator() {
@@ -70,30 +172,6 @@ public class ShiroConfiguration {
         return authenticator;
     }
 
-    @Bean
-    public JavaUuidSessionIdGenerator sessionIdGenerator() {
-        return new JavaUuidSessionIdGenerator();
-    }
-
-    @Bean
-    public SessionDAO sessionDAO() {
-        EnterpriseCacheSessionDAO dao = new EnterpriseCacheSessionDAO();
-        //名字在 缓存配置文件中
-        dao.setActiveSessionsCacheName("cache");
-        dao.setSessionIdGenerator(sessionIdGenerator());
-        return dao;
-    }
-
-    @Bean
-    public DefaultSessionManager sessionManager() {
-        DefaultSessionManager sessionManager = new DefaultSessionManager();
-        sessionManager.setDeleteInvalidSessions(true);
-        sessionManager.setGlobalSessionTimeout(1800000);
-        sessionManager.setSessionValidationSchedulerEnabled(true);
-        sessionManager.setSessionDAO(sessionDAO());
-
-        return sessionManager;
-    }
 
     @Bean
     public DefaultWebSecurityManager getDefaultWebSecurityManager() {
@@ -106,6 +184,7 @@ public class ShiroConfiguration {
         securityManager.setRealms(realmCollection);
         //配置 sessionDao
         securityManager.setSessionManager(sessionManager());
+        securityManager.setRememberMeManager(cookieRememberMeManager());
         return securityManager;
     }
 

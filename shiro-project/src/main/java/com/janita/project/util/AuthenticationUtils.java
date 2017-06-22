@@ -1,9 +1,9 @@
-package com.janita.like.util;
+package com.janita.project.util;
 
-import com.janita.like.entity.Permission;
-import com.janita.like.entity.Role;
-import com.janita.like.entity.RolePermission;
-import com.janita.like.entity.UserRole;
+import com.janita.project.entity.Permission;
+import com.janita.project.entity.Role;
+import com.janita.project.entity.RolePermission;
+import com.janita.project.entity.UserRole;
 
 import java.util.ArrayList;
 import java.util.List;

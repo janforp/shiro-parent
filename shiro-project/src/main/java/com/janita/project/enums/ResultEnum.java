@@ -1,4 +1,4 @@
-package com.janita.like.enums;
+package com.janita.project.enums;
 
 /**
  * Created by Janita on 2017-05-22 12:55

@@ -1,7 +1,7 @@
-package com.janita.like.entity;
+package com.janita.project.entity;
 
 /**
- * Created by com.janita.like.MybatisCodeGenerate on 2017-06-21
+ * Created by com.janita.project.MybatisCodeGenerate on 2017-06-21
  */
 public class RolePermission implements java.io.Serializable {
 

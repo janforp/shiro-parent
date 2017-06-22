@@ -1,13 +1,13 @@
-package com.janita.like.controller.server;
+package com.janita.project.controller.server;
 
-import com.janita.like.constant.PermissionConsts;
-import com.janita.like.constant.RoleConsts;
-import com.janita.like.dto.CreateStudentDto;
-import com.janita.like.entity.Student;
-import com.janita.like.result.ResultDto;
-import com.janita.like.result.ResultDtoFactory;
-import com.janita.like.service.base.StudentService;
-import com.janita.like.util.CommonUtils;
+import com.janita.project.constant.PermissionConsts;
+import com.janita.project.constant.RoleConsts;
+import com.janita.project.dto.CreateStudentDto;
+import com.janita.project.entity.Student;
+import com.janita.project.result.ResultDto;
+import com.janita.project.result.ResultDtoFactory;
+import com.janita.project.service.base.StudentService;
+import com.janita.project.util.CommonUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;

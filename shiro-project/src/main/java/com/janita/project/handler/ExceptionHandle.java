@@ -1,9 +1,9 @@
-package com.janita.like.handler;
+package com.janita.project.handler;
 
-import com.janita.like.exception.CustomException;
-import com.janita.like.exception.InterceptorException;
-import com.janita.like.result.ResultDto;
-import com.janita.like.result.ResultDtoFactory;
+import com.janita.project.exception.CustomException;
+import com.janita.project.exception.InterceptorException;
+import com.janita.project.result.ResultDto;
+import com.janita.project.result.ResultDtoFactory;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.validation.FieldError;

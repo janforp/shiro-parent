@@ -1,6 +1,6 @@
-package com.janita.like.exception;
+package com.janita.project.exception;
 
-import com.janita.like.enums.ResultEnum;
+import com.janita.project.enums.ResultEnum;
 
 /**
  * Created by Janita on 2017/6/21 0021-上午 11:53

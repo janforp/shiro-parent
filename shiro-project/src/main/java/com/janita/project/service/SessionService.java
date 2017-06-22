@@ -1,7 +1,7 @@
-package com.janita.like.service;
+package com.janita.project.service;
 
-import com.janita.like.entity.HospitalUser;
-import com.janita.like.service.base.UserService;
+import com.janita.project.entity.HospitalUser;
+import com.janita.project.service.base.UserService;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;

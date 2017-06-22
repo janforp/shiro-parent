@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.janita.like.dao.StudentDAO">
-    <resultMap id="BaseResultMap" type="com.janita.like.entity.Student">
+<mapper namespace="com.janita.project.dao.StudentDAO">
+    <resultMap id="BaseResultMap" type="com.janita.project.entity.Student">
         <id column="student_id" property="studentId" jdbcType="VARCHAR"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="address" property="address" jdbcType="VARCHAR"/>
@@ -9,22 +9,22 @@
     <sql id="SELECT_All_Column">
         SELECT student_id, name, address
     </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.janita.like.entity.Student">
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.janita.project.entity.Student">
         SELECT *
         FROM student
         WHERE student_id = #{studentId,jdbcType=VARCHAR}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="com.janita.like.entity.Student">
+    <delete id="deleteByPrimaryKey" parameterType="com.janita.project.entity.Student">
         DELETE FROM student
         WHERE student_id = #{studentId,jdbcType=VARCHAR}
     </delete>
-    <insert id="insert" parameterType="com.janita.like.entity.Student">
+    <insert id="insert" parameterType="com.janita.project.entity.Student">
         INSERT INTO student ( student_id, 
           name, address )
         VALUES ( #{studentId,jdbcType=VARCHAR}, 
           #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR} )
     </insert>
-    <insert id="insertSelective" parameterType="com.janita.like.entity.Student">
+    <insert id="insertSelective" parameterType="com.janita.project.entity.Student">
         INSERT INTO student
         <trim prefix="(" suffixOverrides="," suffix=")">
                 student_id,
@@ -57,7 +57,7 @@
             )
         </foreach>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.janita.like.entity.Student">
+    <update id="updateByPrimaryKeySelective" parameterType="com.janita.project.entity.Student">
         UPDATE student
         <set>
             <if test="name != null">
@@ -69,7 +69,7 @@
         </set>
         WHERE student_id = #{studentId,jdbcType=VARCHAR}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.janita.like.entity.Student">
+    <update id="updateByPrimaryKey" parameterType="com.janita.project.entity.Student">
         UPDATE student
         SET name = #{name,jdbcType=VARCHAR},
             address = #{address,jdbcType=VARCHAR}

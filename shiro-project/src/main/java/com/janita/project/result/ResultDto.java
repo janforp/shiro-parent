@@ -1,4 +1,4 @@
-package com.janita.like.result;
+package com.janita.project.result;
 
 /**
  * 与页面交互的dto

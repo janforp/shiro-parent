@@ -1,4 +1,4 @@
-package com.janita.like.config;
+package com.janita.project.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.slf4j.Logger;
