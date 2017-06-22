@@ -63,13 +63,13 @@ public class AuthenticationService {
      * @param userId
      * @return
      */
-    public Set<String> getPermissionNameByUserId(String userId) {
+    public Set<String> getPermissionURLByUserId(String userId) {
         List<UserRole> userRoleList = userRoleService.getByUserId(userId);
         List<String> roleIds = getRoleIdByList(userRoleList);
         List<RolePermission> rolePermissionList = rolePermissionService.getByRoleIdList(roleIds);
         List<String> permissionIds = getPermissionIdInList(rolePermissionList);
         List<Permission> permissionList = permissionService.getByPermissionIdList(permissionIds);
-        return getPermissionCodeInList(permissionList);
+        return getPermissionUrlInList(permissionList);
     }
 
     /**
@@ -78,8 +78,8 @@ public class AuthenticationService {
      */
     public void saveToCache(LoginResultBean bean) {
         String token = bean.getToken();
-        List<String> permissions = bean.getPermissions();
-        RedisUtils.setKeyOfObject(redisUtilsTemplate, token, permissions);
-        RedisUtils.setExpire(redisUtilsTemplate, token, 200);
+        List<String> permissionURLs = bean.getPermissions();
+        RedisUtils.setKeyOfObject(redisUtilsTemplate, token, permissionURLs);
+        RedisUtils.setExpire(redisUtilsTemplate, token, 10);
     }
 }

@@ -61,4 +61,12 @@ public class AuthenticationUtils {
         return null;
     }
 
+
+    public static Set<String> getPermissionUrlInList(List<Permission> permissionList){
+        if (!permissionList.isEmpty()) {
+            return permissionList.stream().map(Permission::getUrl).collect(Collectors.toSet());
+        }
+        return null;
+    }
+
 }

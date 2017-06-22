@@ -36,7 +36,7 @@ public class LoginController {
     @PostMapping("/login")
     public ResultDto login(@RequestParam("loginName") String loginName, @RequestParam("password") String password) {
         User user = loginService.login(loginName, password);
-        Set<String> permissions = authenticationService.getPermissionNameByUserId(user.getUserId());
+        Set<String> permissions = authenticationService.getPermissionURLByUserId(user.getUserId());
         LoginResultBean bean = convertUserToLoginResultBean(user, permissions);
         bean.setToken(CommonUtils.getRandomUUID());
         //把该用户的权限存入redis，用于他后面的请求看是否有权限，在拦截器中检查

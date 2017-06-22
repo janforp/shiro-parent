@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * Created by Janita on 2017/6/21 0021-上午 10:57
  * 该类是：不适用 shiro 框架，自己实现权限
+ * 通过资源的 url 来设置
  * 基本原理：
  * 1.登录之后对每个登录成功的用户生成一个 uuid 的 token,并获取该用户所有的 permission
  * 2.把 token 及其他的基本数据传到前端

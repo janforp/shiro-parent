@@ -46,7 +46,7 @@ public class RequestInterceptor implements HandlerInterceptor {
         if (permissions.contains(requestURI)) {
             return true;
         }
-        throw new CustomException(ResultEnum.EMPTY_USERNAME_PASSWORD);
+        throw new CustomException(ResultEnum.AUTHORITY_NOT_ENOUGH);
     }
 
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {}
