@@ -11,7 +11,8 @@
 		<module>shiro-two</module>
         <module>shiro-project</module>
 		<module>like-shiro</module>
-	</modules>
+        <module>shiro-boot</module>
+    </modules>
 	<packaging>pom</packaging>
 
 	<name>shiro-parent</name>
