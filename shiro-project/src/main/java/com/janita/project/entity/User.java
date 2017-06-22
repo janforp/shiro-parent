@@ -1,9 +1,9 @@
-package com.janita.like.entity;
+package com.janita.project.entity;
 
 /**
- * Created by com.janita.like.MybatisCodeGenerate on 2017-06-21
+ * Created by com.janita.project.MybatisCodeGenerate on 2017-06-21
  */
-public class HospitalUser implements java.io.Serializable {
+public class User implements java.io.Serializable {
 
     // Fields
 
@@ -25,13 +25,13 @@ public class HospitalUser implements java.io.Serializable {
     /**
      * default constructor
      */
-    public HospitalUser() {
+    public User() {
     }
 
     /**
      * full constructor
      */
-    public HospitalUser(String userId, String loginName, String username, String password, String salt, Integer locked) {
+    public User(String userId, String loginName, String username, String password, String salt, Integer locked) {
         this.userId = userId;
         this.loginName = loginName;
         this.username = username;
@@ -128,7 +128,7 @@ public class HospitalUser implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "HospitalUser{" +
+        return "User{" +
                 "userId='" + userId + '\'' +
                 ", loginName='" + loginName + '\'' +
                 ", username='" + username + '\'' +

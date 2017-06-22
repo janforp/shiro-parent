@@ -1,6 +1,6 @@
 package com.janita.project.service;
 
-import com.janita.project.entity.HospitalUser;
+import com.janita.project.entity.User;
 import com.janita.project.service.base.UserService;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
@@ -27,7 +27,7 @@ public class SessionService {
     public Session createAndConfigSession(Subject subject, UsernamePasswordToken token) {
         Session session = subject.getSession();
         String loginName = token.getUsername();
-        HospitalUser user = userService.getByLoginName(loginName);
+        User user = userService.getByLoginName(loginName);
         session.setAttribute("user", user);
         return session;
     }

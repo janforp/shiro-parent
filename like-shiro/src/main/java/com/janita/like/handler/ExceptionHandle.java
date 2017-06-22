@@ -4,8 +4,6 @@ import com.janita.like.exception.CustomException;
 import com.janita.like.exception.InterceptorException;
 import com.janita.like.result.ResultDto;
 import com.janita.like.result.ResultDtoFactory;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,16 +19,6 @@ import java.util.List;
 @RestControllerAdvice
 @SuppressWarnings("unused")
 public class ExceptionHandle {
-
-    @ExceptionHandler(value = UnknownAccountException.class)
-    public ResultDto handleDataNotFoundException(UnknownAccountException unknownAccountException) {
-        return ResultDtoFactory.toError("-1", unknownAccountException.getMessage());
-    }
-
-    @ExceptionHandler(value = LockedAccountException.class)
-    public ResultDto handleLoginException(LockedAccountException lockedAccountException) {
-        return ResultDtoFactory.toError("-1", lockedAccountException.getMessage());
-    }
 
     @ExceptionHandler(value = NullPointerException.class)
     public ResultDto handleNullPointerException(NullPointerException nullPointerException) {

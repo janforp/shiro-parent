@@ -24,7 +24,8 @@ CREATE TABLE `role_permission` (
   PRIMARY KEY (`role_id`,`permission_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '角色具有的资源权限';
 
-CREATE TABLE `hospital_user` (
+
+CREATE TABLE `user` (
   `user_id` varchar(36) NOT NULL COMMENT '主键',
   `login_name` varchar(32) NOT NULL COMMENT '账号',
   `username` varchar(64) NOT NULL COMMENT '姓名',

@@ -1,10 +1,11 @@
 package com.janita.like.controller;
 
 import com.janita.like.bean.LoginResultBean;
-import com.janita.like.entity.HospitalUser;
+import com.janita.like.entity.User;
 import com.janita.like.result.ResultDto;
 import com.janita.like.result.ResultDtoFactory;
 import com.janita.like.service.LoginService;
+import com.janita.like.service.authority.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,16 +20,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     private final LoginService loginService;
+    private final AuthorityService authorityService;
 
     @Autowired(required = false)
-    public LoginController(LoginService loginService) {
+    public LoginController(LoginService loginService, AuthorityService authorityService) {
         this.loginService = loginService;
-
+        this.authorityService = authorityService;
     }
 
     @PostMapping("/login")
     public ResultDto login(@RequestParam("loginName") String loginName, @RequestParam("password") String password) {
-        HospitalUser user = loginService.login(loginName, password);
+        User user = loginService.login(loginName, password);
         LoginResultBean bean = new LoginResultBean();
         bean.setUsername(user.getUsername());
         return ResultDtoFactory.toSuccess(bean);

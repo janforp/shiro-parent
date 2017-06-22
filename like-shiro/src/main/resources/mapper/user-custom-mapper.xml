@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.janita.project.dao.HospitalUserDAO">
+<mapper namespace="com.janita.like.dao.UserDAO">
 
-    <select id="getByLoginName" resultMap="BaseResultMap" parameterType="com.janita.project.entity.HospitalUser">
+    <select id="getByLoginName" resultMap="BaseResultMap" parameterType="com.janita.like.entity.User">
         SELECT *
-        FROM hospital_user
+        FROM user
         WHERE login_name = #{loginName,jdbcType=VARCHAR}
     </select>
 

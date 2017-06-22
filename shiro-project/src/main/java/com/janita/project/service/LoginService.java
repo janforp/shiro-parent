@@ -1,6 +1,6 @@
 package com.janita.project.service;
 
-import com.janita.project.entity.HospitalUser;
+import com.janita.project.entity.User;
 import com.janita.project.service.base.UserService;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class LoginService {
         this.userService = userService;
     }
 
-    public HospitalUser login(UsernamePasswordToken token){
+    public User login(UsernamePasswordToken token){
         String loginName = token.getUsername();
         return userService.getByLoginName(loginName);
     }

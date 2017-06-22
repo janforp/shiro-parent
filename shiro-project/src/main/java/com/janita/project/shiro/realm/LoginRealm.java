@@ -1,6 +1,6 @@
 package com.janita.project.shiro.realm;
 
-import com.janita.project.entity.HospitalUser;
+import com.janita.project.entity.User;
 import com.janita.project.service.AuthenticationService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -32,7 +32,7 @@ public class LoginRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
         String loginName = usernamePasswordToken.getUsername();
-        HospitalUser user = authenticationService.getUserByLoginName(loginName);
+        User user = authenticationService.getUserByLoginName(loginName);
         String userId = user.getUserId();
         String password = user.getPassword();
         ByteSource salt = ByteSource.Util.bytes(user.getSalt());

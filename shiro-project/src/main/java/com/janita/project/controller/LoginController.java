@@ -2,13 +2,11 @@ package com.janita.project.controller;
 
 import com.janita.project.bean.LoginResultBean;
 import com.janita.project.config.RedisUtilsTemplate;
-import com.janita.project.entity.HospitalUser;
+import com.janita.project.entity.User;
 import com.janita.project.result.ResultDto;
 import com.janita.project.result.ResultDtoFactory;
 import com.janita.project.service.LoginService;
 import com.janita.project.service.SessionService;
-import com.janita.project.util.RedisUtils;
-import com.janita.project.util.SessionSerializableUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
@@ -48,7 +46,7 @@ public class LoginController {
         subject.login(token);
         Session session = sessionService.createAndConfigSession(subject, token);
 //        RedisUtils.setKeyOfObject(redisUtilsTemplate,"session", session);
-        HospitalUser user = loginService.login(token);
+        User user = loginService.login(token);
         LoginResultBean bean = new LoginResultBean();
         bean.setSessionId(session.getId().toString());
         bean.setUsername(user.getUsername());

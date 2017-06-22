@@ -1,7 +1,7 @@
 package com.janita.like.service.base;
 
-import com.janita.like.dao.HospitalUserDAO;
-import com.janita.like.entity.HospitalUser;
+import com.janita.like.dao.UserDAO;
+import com.janita.like.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +12,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    private final HospitalUserDAO userDAO;
+    private final UserDAO userDAO;
 
     @Autowired(required = false)
-    public UserService(HospitalUserDAO userDAO) {
+    public UserService(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
-    public HospitalUser getByLoginName(String loginName) {
+    public User getByLoginName(String loginName) {
         return userDAO.getByLoginName(loginName);
     }
 }

@@ -37,7 +37,7 @@ public class AuthenticationService {
      * @param loginName
      * @return
      */
-    public HospitalUser getUserByLoginName(String loginName) {
+    public User getUserByLoginName(String loginName) {
         return userService.getByLoginName(loginName);
     }
 

@@ -1,6 +1,6 @@
 package com.janita.like.service;
 
-import com.janita.like.entity.HospitalUser;
+import com.janita.like.entity.User;
 import com.janita.like.enums.ResultEnum;
 import com.janita.like.exception.LoginException;
 import com.janita.like.service.base.UserService;
@@ -21,8 +21,8 @@ public class LoginService {
         this.userService = userService;
     }
 
-    public HospitalUser login(String loginName, String password){
-        HospitalUser user = userService.getByLoginName(loginName);
+    public User login(String loginName, String password){
+        User user = userService.getByLoginName(loginName);
         if (user == null) {
             throw new LoginException(ResultEnum.EMPTY_USERNAME_PASSWORD);
         }
