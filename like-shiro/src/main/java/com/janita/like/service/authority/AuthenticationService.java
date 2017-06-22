@@ -28,7 +28,13 @@ public class AuthenticationService {
     private final RedisUtilsTemplate redisUtilsTemplate;
 
     @Autowired
-    public AuthenticationService(UserService userService, RoleService roleService, UserRoleService userRoleService, PermissionService permissionService, RolePermissionService rolePermissionService, RedisUtilsTemplate redisUtilsTemplate) {
+    public AuthenticationService(UserService userService,
+                                 RoleService roleService,
+                                 UserRoleService userRoleService,
+                                 PermissionService permissionService,
+                                 RolePermissionService rolePermissionService,
+                                 RedisUtilsTemplate redisUtilsTemplate) {
+
         this.userService = userService;
         this.roleService = roleService;
         this.userRoleService = userRoleService;
