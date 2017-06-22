@@ -13,8 +13,8 @@ public class MD5SaltUtils {
         String name = "MD5";
         Object cre = password;
         int time = 1024;
-        ByteSource salt = ByteSource.Util.bytes("123");
-        Object res = new SimpleHash(name, cre, salt, time);
+//        ByteSource salt = ByteSource.Util.bytes("123");
+        Object res = new SimpleHash(name, cre, null, time);
 
         return res.toString();
     }
