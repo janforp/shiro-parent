@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * localhost:8080/login 登录页面
+ */
 @SpringBootApplication
 @EnableTransactionManagement
 @MapperScan(basePackages = "com.study.mapper")
