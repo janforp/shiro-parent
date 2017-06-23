@@ -1,8 +1,10 @@
 package com.janita.like;
 
+import com.janita.like.config.CustomProperties;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 /**
  * Created by Janita on 2017/6/21 0021-上午 10:57
@@ -17,6 +19,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan(basePackages ="com.janita.like")
+@EnableConfigurationProperties(CustomProperties.class)
 public class LikeApplication {
     public static void main(String[] args) {
         SpringApplication.run(LikeApplication.class, args);

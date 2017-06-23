@@ -1,5 +1,6 @@
 package com.janita.like.interceptor;
 
+import com.janita.like.config.CustomProperties;
 import com.janita.like.config.RedisUtilsTemplate;
 import com.janita.like.constant.CommonConsts;
 import com.janita.like.entity.Permission;
@@ -40,7 +41,9 @@ public class RequestInterceptor implements HandlerInterceptor {
             throw new InterceptorException(ResultEnum.HEADER_TOKEN_NAME_EMPTY);
         }
         TokenDto tokenDto = TokenUtil.parseToken(headerToken);
-        boolean isExpire = TokenUtil.isExpire(tokenDto,60*60000000000L);
+        long expireTime = CustomProperties.TOKEN_EXPIRE_TIME;
+        System.out.println("\n***** 配置的token过期时间: " + expireTime);
+        boolean isExpire = TokenUtil.isExpire(tokenDto, expireTime);
         if (isExpire) {
             //token 已经过期
             throw new InterceptorException(ResultEnum.TOKEN_EXPIRE);
