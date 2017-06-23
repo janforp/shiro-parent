@@ -2,6 +2,7 @@ package com.janita.like.handler;
 
 import com.janita.like.exception.CustomException;
 import com.janita.like.exception.InterceptorException;
+import com.janita.like.exception.LoginException;
 import com.janita.like.result.ResultDto;
 import com.janita.like.result.ResultDtoFactory;
 import org.springframework.validation.FieldError;
@@ -47,6 +48,11 @@ public class ExceptionHandle {
 
     @ExceptionHandler(value = InterceptorException.class)
     public ResultDto handleInterceptorException(InterceptorException e) {
+        return ResultDtoFactory.toError(e.getResultCode(), e.getReason());
+    }
+
+    @ExceptionHandler(value = LoginException.class)
+    public ResultDto handleLoginException(LoginException e) {
         return ResultDtoFactory.toError(e.getResultCode(), e.getReason());
     }
 }
