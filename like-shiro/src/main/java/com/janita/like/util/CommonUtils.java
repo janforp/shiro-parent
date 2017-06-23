@@ -14,4 +14,8 @@ public class CommonUtils {
     public static String getRandomUUID(){
         return UUID.randomUUID().toString();
     }
+
+    public static long getNowTime() {
+        return System.currentTimeMillis();
+    }
 }

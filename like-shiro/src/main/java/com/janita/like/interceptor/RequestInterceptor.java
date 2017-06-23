@@ -6,6 +6,8 @@ import com.janita.like.entity.Permission;
 import com.janita.like.enums.ResultEnum;
 import com.janita.like.exception.CustomException;
 import com.janita.like.exception.InterceptorException;
+import com.janita.like.token.TokenDto;
+import com.janita.like.token.TokenUtil;
 import com.janita.like.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,8 +39,14 @@ public class RequestInterceptor implements HandlerInterceptor {
         if (StringUtils.isEmpty(headerToken)){
             throw new InterceptorException(ResultEnum.HEADER_TOKEN_NAME_EMPTY);
         }
+        TokenDto tokenDto = TokenUtil.parseToken(headerToken);
+        boolean isExpire = TokenUtil.isExpire(tokenDto,60*60000000000L);
+        if (isExpire) {
+            //token 已经过期
+            throw new InterceptorException(ResultEnum.TOKEN_EXPIRE);
+        }
         //去缓存中根据loginName获取到对应的token
-        List<Permission> permissions = RedisUtils.getObjectOfKey(redisUtilsTemplate, headerToken);
+        List<String> permissions = RedisUtils.getObjectOfKey(redisUtilsTemplate, tokenDto.getLoginName());
         System.out.println("\n***** 该用户具有的权限 : " +  permissions);
 
         String requestURI = request.getRequestURI();

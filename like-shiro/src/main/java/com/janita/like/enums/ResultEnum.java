@@ -52,7 +52,9 @@ public enum ResultEnum {
 
     EXCEL_ALREADY_PARSED("23", "该excel已解析过"),
 
-    AUTHORITY_NOT_ENOUGH("24", "权限不够");
+    AUTHORITY_NOT_ENOUGH("24", "权限不够"),
+
+    TOKEN_EXPIRE("25", "token过期");
 
     private String resultCode;
 

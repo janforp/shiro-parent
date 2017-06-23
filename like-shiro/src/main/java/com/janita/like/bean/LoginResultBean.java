@@ -57,4 +57,15 @@ public class LoginResultBean {
     public void setPermissions(List<String> permissions) {
         this.permissions = permissions;
     }
+
+    @Override
+    public String toString() {
+        return "LoginResultBean{" +
+                "token='" + token + '\'' +
+                ", userId='" + userId + '\'' +
+                ", loginName='" + loginName + '\'' +
+                ", username='" + username + '\'' +
+                ", permissions=" + permissions +
+                '}';
+    }
 }

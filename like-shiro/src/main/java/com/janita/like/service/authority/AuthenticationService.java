@@ -85,7 +85,8 @@ public class AuthenticationService {
     public void saveToCache(LoginResultBean bean) {
         String token = bean.getToken();
         List<String> permissionURLs = bean.getPermissions();
-        RedisUtils.setKeyOfObject(redisUtilsTemplate, token, permissionURLs);
-        RedisUtils.setExpire(redisUtilsTemplate, token, 10);
+        System.out.println("\n***** 登录用户的权限资源有 : " + permissionURLs);
+        RedisUtils.setKeyOfObject(redisUtilsTemplate, bean.getLoginName(), permissionURLs);
+        RedisUtils.setExpire(redisUtilsTemplate, token, 1000);
     }
 }

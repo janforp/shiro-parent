@@ -3,6 +3,8 @@ package com.janita.like.token;
 import com.auth0.jwt.JWTSigner;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.JWTVerifyException;
+import com.janita.like.util.CommonUtils;
+import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -11,59 +13,28 @@ import java.security.SignatureException;
 import java.util.HashMap;
 import java.util.Map;
 
+
+@Configuration
 public class TokenUtil {
 
-    private static final String SECRET = "123";
-    private static final String USER_ID = "userId";
-    private static final String USERNAME = "username";
-    private static final String AUDIENCE = "audience";
-    private static final String ISS = "iss";
-    private static final String EXP = "exp";
-    private static final String IAT = "iat";
+    private static final String SALT = "GGKSI8HFLSAF";
+    private static final String LOGIN_NAME = "loginName";
+    private static final String TOKEN_TIME = "tokenTime";
 
-    //token过期时间设置
-    private static final Long tokenExpireTime = 3600000L;
 
     /**
      * 生成token的静态方法，
      * 传入用户的帐号和id
-     * @param username  用户名
-     * @param userId    userId
-     * @param userRole 用户角色 1：学生，2：老师，3：管理员
+     * @param loginName  用户名
      * @return token
      */
-    public static String createToken(String username, String userId, Integer userRole){
+    public static String createToken(String loginName, Long tokenTime){
 
-        final String issuer = "";
-
-        final long iat = System.currentTimeMillis();
-        final long exp = iat + tokenExpireTime;
-
-        final JWTSigner signer = new JWTSigner(SECRET);
+        final JWTSigner signer = new JWTSigner(SALT);
         final HashMap<String, Object> claims = new HashMap<>();
-        String audience = null;
-
-        switch (userRole) {
-        case 1:
-            audience = "student";
-            break;
-        case 2:
-            audience = "teacher";
-            break;
-        case 3:
-            audience = "admin";
-            break;
-        case 4:
-            audience = "school";
-            break;
-        }
-        claims.put(USER_ID, userId);
-        claims.put(ISS, issuer);
-        claims.put(EXP, exp);
-        claims.put(IAT, iat);
-        claims.put(AUDIENCE, audience);
-        claims.put(USERNAME,username);
-
+        claims.put(LOGIN_NAME, loginName);
+        claims.put(TOKEN_TIME, tokenTime);
+        claims.put(LOGIN_NAME,loginName);
         return signer.sign(claims);
     }
 
@@ -74,13 +45,27 @@ public class TokenUtil {
     public static TokenDto parseToken(String token) throws SignatureException, NoSuchAlgorithmException, JWTVerifyException, InvalidKeyException, IOException {
 
         TokenDto tokenDto = new TokenDto();
-        final JWTVerifier verifier = new JWTVerifier(SECRET);
+        final JWTVerifier verifier = new JWTVerifier(SALT);
         Map<String, Object> claims ;
         claims = verifier.verify(token);
-        tokenDto.setUserId(claims.get(USER_ID).toString());
-        tokenDto.setAudience(claims.get(AUDIENCE).toString());
-        tokenDto.setUsername(claims.get(USERNAME).toString());
+        tokenDto.setLoginName(claims.get(LOGIN_NAME).toString());
+        tokenDto.setTokenTime(Long.parseLong( claims.get(TOKEN_TIME).toString()));
 
         return tokenDto;
+    }
+
+    /**
+     * 判断该 token 是否过期
+     * @param tokenDto
+     * @param expireTime
+     * @return
+     */
+    public static boolean isExpire(TokenDto tokenDto, long expireTime) {
+        Long tokenTime = tokenDto.getTokenTime();
+        long expire = tokenTime + expireTime;
+        if (CommonUtils.getNowTime() > expire) {
+            return true;
+        }
+        return false;
     }
 }

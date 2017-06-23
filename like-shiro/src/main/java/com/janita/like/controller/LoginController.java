@@ -6,6 +6,7 @@ import com.janita.like.result.ResultDto;
 import com.janita.like.result.ResultDtoFactory;
 import com.janita.like.service.LoginService;
 import com.janita.like.service.authority.AuthenticationService;
+import com.janita.like.token.TokenUtil;
 import com.janita.like.util.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,8 +39,9 @@ public class LoginController {
         User user = loginService.login(loginName, password);
         Set<String> permissions = authenticationService.getPermissionURLByUserId(user.getUserId());
         LoginResultBean bean = convertUserToLoginResultBean(user, permissions);
-        bean.setToken(CommonUtils.getRandomUUID());
+        bean.setToken(TokenUtil.createToken(loginName,CommonUtils.getNowTime()));
         //把该用户的权限存入redis，用于他后面的请求看是否有权限，在拦截器中检查
+        System.out.println("\n***** 登录成功返回的数据 : " + bean);
         authenticationService.saveToCache(bean);
         return ResultDtoFactory.toSuccess(bean);
     }
