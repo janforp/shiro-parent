@@ -25,10 +25,7 @@ public class AuthenticationUtils {
     public static List<String> getRoleIdByList(List<UserRole> userRoleList) {
         List<String> roleIds = null ;
         if (!userRoleList.isEmpty()) {
-            roleIds = new ArrayList<>();
-            for (UserRole userRole : userRoleList) {
-                roleIds.add(userRole.getRoleId());
-            }
+            roleIds = userRoleList.stream().map(UserRole::getRoleId).collect(Collectors.toList());
         }
         return roleIds;
     }
